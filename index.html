@@ -1,0 +1,1232 @@
+<!doctype html>
+<html lang="my">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="light dark" />
+  <link rel="icon" href="data:," />
+  <title>The Voice of Arakan — Website</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@500;600;700;800&family=Noto+Sans+Myanmar:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --paper: #f4f4f1;
+      --surface: #ffffff;
+      --ink: #111318;
+      --muted: #5c616b;
+      --line: #d6d7d3;
+      --navy: #123A5C;
+      --navy-2: #0e2b45;
+      --signal: #C9A227;
+      --alert: #ce2027;
+      --alert-dark: #9f141a;
+      --white: #fff;
+      --shadow: 0 16px 42px rgba(5, 11, 24, .16);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --paper: #090d15;
+        --surface: #111722;
+        --ink: #f5f6f8;
+        --muted: #b1b7c3;
+        --line: #293140;
+        --navy: #123A5C;
+        --navy-2: #0e2b45;
+        --shadow: 0 20px 46px rgba(0, 0, 0, .38);
+      }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Noto Sans Myanmar", "Libre Franklin", sans-serif;
+      line-height: 1.65;
+      text-rendering: optimizeLegibility;
+    }
+    img, video { display: block; max-width: 100%; }
+    button, a { font: inherit; }
+    a { color: inherit; }
+    .shell { width: min(1180px, calc(100% - 40px)); margin-inline: auto; }
+    .utility {
+      background: var(--navy);
+      color: #d8deea;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+      font-family: "Libre Franklin", sans-serif;
+      font-size: .76rem;
+      font-weight: 700;
+      letter-spacing: .035em;
+    }
+    .utility .shell { min-height: 38px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .date { color: #fff; }
+    .site-domain { color: #f2d268; white-space: nowrap; }
+    .mission-short { color: #aeb8cc; }
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: color-mix(in srgb, var(--surface) 95%, transparent);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
+    .nav .shell { min-height: 58px; display: flex; align-items: center; justify-content: space-between; gap: 22px; }
+    .edition-mark { display: flex; align-items: center; gap: 10px; font-size: .84rem; font-weight: 800; }
+    .edition-mark::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--alert); box-shadow: 0 0 0 4px color-mix(in srgb, var(--alert) 18%, transparent); }
+    .nav-links { display: flex; flex-wrap: wrap; align-items: center; gap: 22px; }
+    .nav-links a { text-decoration: none; font-size: .82rem; font-weight: 700; color: var(--muted); }
+    .nav-links a:hover, .nav-links a:focus-visible { color: var(--alert); }
+    .hero { background: var(--navy); color: var(--white); overflow: hidden; }
+    .hero-grid { min-height: 620px; display: grid; grid-template-columns: minmax(0, .88fr) minmax(400px, 1.12fr); }
+    .hero-copy { padding: 66px clamp(26px, 5vw, 76px) 58px max(20px, calc((100vw - 1180px)/2)); display: flex; flex-direction: column; justify-content: center; position: relative; }
+    .hero-copy::after { content: ""; position: absolute; right: 0; top: 13%; bottom: 13%; width: 1px; background: rgba(255,255,255,.16); }
+    .kicker { display: inline-flex; align-items: center; gap: 11px; margin: 0 0 28px; color: #f2d268; font-size: .78rem; font-family: "Libre Franklin", sans-serif; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
+    .kicker::before { content: ""; width: 33px; height: 3px; background: var(--alert); }
+    h1 { margin: 0; max-width: 650px; font-size: clamp(2.55rem, 5.4vw, 5.8rem); line-height: 1.08; letter-spacing: -.035em; font-weight: 800; }
+    .hero-copy .english { display: block; margin-top: 18px; color: #cbd3e2; font-family: "Libre Franklin", sans-serif; font-size: clamp(1.05rem, 1.8vw, 1.45rem); font-weight: 600; line-height: 1.35; letter-spacing: -.01em; }
+    .hero-summary { margin: 30px 0; max-width: 590px; color: #d8deea; font-size: 1.02rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+    .button { min-height: 48px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 11px 20px; border: 0; text-decoration: none; font-size: .88rem; font-weight: 800; cursor: pointer; }
+    .button.primary { background: var(--signal); color: #111; }
+    .button.secondary { border: 1px solid rgba(255,255,255,.32); color: #fff; background: transparent; }
+    .button:hover { filter: brightness(.94); }
+    .hero-art { position: relative; min-height: 620px; }
+    .hero-art img, .hero-art video { width: 100%; height: 100%; object-fit: contain; object-position: center; }
+    .hero-art::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, var(--navy) 0%, transparent 18%), linear-gradient(0deg, rgba(4,9,22,.4), transparent 45%); pointer-events: none; }
+    .breaking-strip { background: var(--alert); color: #fff; }
+    .breaking-strip .shell { min-height: 56px; display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 18px; }
+    .breaking-label { font-family: "Libre Franklin", sans-serif; font-weight: 800; font-size: .74rem; letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; }
+    .breaking-text { margin: 0; padding-left: 18px; border-left: 1px solid rgba(255,255,255,.45); font-weight: 700; font-size: .9rem; }
+    .today-news { padding: 58px 0 64px; background: var(--navy); color: #fff; border-top: 5px solid var(--signal); }
+    .today-heading { display: flex; align-items: end; justify-content: space-between; gap: 28px; padding-bottom: 26px; border-bottom: 1px solid rgba(255,255,255,.24); }
+    .today-heading h1 { font-size: clamp(2.45rem, 6vw, 5rem); line-height: 1.08; }
+    .today-heading p { margin: 0 0 5px; color: #f2d268; font-weight: 800; white-space: nowrap; }
+    .today-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(390px, .9fr); gap: 34px; margin-top: 32px; align-items: start; }
+    .today-panel { min-width: 0; }
+    .today-panel-label { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 48px; margin-bottom: 18px; padding-bottom: 13px; border-bottom: 2px solid var(--signal); }
+    .today-panel-label h2 { margin: 0; font-size: clamp(1.35rem, 2.3vw, 2rem); line-height: 1.3; }
+    .today-panel-label span { color: #c9d2e1; font-family: "Libre Franklin", sans-serif; font-size: .73rem; font-weight: 800; }
+    .today-digest-list { display: grid; gap: 0; }
+    .today-digest-item { padding: 17px 0; border-bottom: 1px solid rgba(255,255,255,.18); }
+    .today-digest-item:first-child { padding-top: 0; }
+    .today-digest-item h3 { margin: 0 0 8px; color: var(--signal); font-size: 1.05rem; }
+    .today-digest-photo { width: 100%; aspect-ratio: 16 / 9; margin-bottom: 13px; object-fit: cover; border-bottom: 3px solid var(--signal); }
+    .today-digest-item p { margin: 0; color: #eef1f6; font-size: .93rem; line-height: 1.8; }
+    .today-video-frame { background: #000; box-shadow: 0 18px 46px rgba(0,0,0,.38); }
+    .today-video-frame video { width: 100%; aspect-ratio: 16/9; object-fit: contain; }
+    .today-video-note { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 15px 17px; background: var(--navy-2); border-top: 1px solid rgba(255,255,255,.14); }
+    .today-video-note p { margin: 0; color: #dbe2ee; font-size: .78rem; line-height: 1.55; }
+    .today-video-note a { flex: 0 0 auto; min-height: 46px; display: inline-flex; align-items: center; justify-content: center; padding: 10px 15px; background: var(--signal); color: #111; text-decoration: none; font-size: .78rem; font-weight: 800; }
+    .today-breaking { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(260px, .38fr) minmax(0, 1fr); align-items: center; gap: 30px; margin-top: 4px; padding: 24px; background: var(--navy-2); border-top: 5px solid var(--alert); box-shadow: 0 18px 44px rgba(0,0,0,.3); }
+    .today-breaking-media { position: relative; min-height: 315px; display: grid; place-items: center; overflow: hidden; background: #02050c; border: 1px solid rgba(255,255,255,.16); }
+    .today-breaking-media .fb-video { width: 100%; display: grid; place-items: center; }
+    .today-breaking-fallback { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 11px 17px; color: #fff; text-align: center; text-decoration: none; font-size: .82rem; font-weight: 800; }
+    .today-breaking-label { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; padding-bottom: 13px; border-bottom: 1px solid rgba(255,255,255,.2); }
+    .today-breaking-label strong { color: #fff; font-family: "Libre Franklin", sans-serif; font-size: .8rem; letter-spacing: .09em; text-transform: uppercase; }
+    .today-breaking-label span { color: #f3a4a7; font-family: "Libre Franklin", sans-serif; font-size: .72rem; font-weight: 800; }
+    .today-breaking-copy h2 { margin: 0 0 10px; color: #fff; font-size: clamp(1.25rem, 2.2vw, 1.85rem); line-height: 1.45; }
+    .today-breaking-copy p { margin: 0; color: #e9edf4; font-size: .9rem; line-height: 1.75; }
+    .today-breaking-link { min-height: 48px; display: inline-flex; align-items: center; justify-content: center; margin-top: 20px; padding: 11px 17px; background: var(--alert); color: #fff; text-decoration: none; font-size: .82rem; font-weight: 800; white-space: nowrap; }
+    .today-breaking-link:hover, .today-breaking-link:focus-visible { background: var(--alert-dark); }
+    .today-feature { border-top-color: var(--signal); }
+    .today-feature .today-breaking-label strong { color: var(--signal); }
+    .today-feature .today-breaking-label span { color: #c9d2e1; }
+    .today-feature .today-breaking-link { background: var(--signal); color: #111; }
+    .today-feature .today-breaking-link:hover, .today-feature .today-breaking-link:focus-visible { background: #ffda63; }
+    .today-feature .today-breaking-media { min-height: 0; aspect-ratio: 16 / 9; }
+    .today-feature .today-breaking-media video { width: 100%; height: 100%; object-fit: contain; }
+    .safety-feature { padding: 58px 0 64px; background: var(--navy-2); color: #fff; border-top: 5px solid var(--signal); }
+    .safety-card { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(320px, .85fr); gap: 34px; align-items: center; padding: 26px; background: var(--navy); border: 2px solid var(--signal); box-shadow: 0 22px 54px rgba(0,0,0,.42); }
+    .safety-media { aspect-ratio: 16 / 9; background: #000; box-shadow: 0 18px 46px rgba(0,0,0,.38); }
+    .safety-media video { width: 100%; height: 100%; object-fit: contain; }
+    .safety-brand { display: flex; align-items: center; gap: 13px; margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,.2); }
+    .safety-brand img { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 1px rgba(255,255,255,.25); }
+    .safety-brand strong { display: block; color: var(--signal); font-family: "Libre Franklin", sans-serif; font-size: .8rem; letter-spacing: .09em; text-transform: uppercase; }
+    .safety-brand span { display: block; color: #c9d2e1; font-family: "Libre Franklin", sans-serif; font-size: .72rem; font-weight: 800; }
+    .safety-copy h2 { margin: 0 0 8px; color: #fff; font-size: clamp(1.5rem, 2.6vw, 2.2rem); line-height: 1.4; }
+    .safety-english { margin: 0 0 14px; color: #f2d268; font-family: "Libre Franklin", sans-serif; font-size: 1rem; font-weight: 700; line-height: 1.45; }
+    .safety-intro { margin: 0; color: #e9edf4; font-size: .93rem; line-height: 1.8; }
+    .safety-meta { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 18px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,.2); color: #c9d2e1; font-family: "Libre Franklin", "Noto Sans Myanmar", sans-serif; font-size: .74rem; font-weight: 800; letter-spacing: .05em; }
+    .safety-download { min-height: 50px; display: inline-flex; align-items: center; justify-content: center; margin-top: 20px; padding: 12px 20px; background: var(--signal); color: #111; text-decoration: none; font-size: .86rem; font-weight: 800; }
+    .safety-download:hover, .safety-download:focus-visible { background: #ffda63; }
+    .today-breaking-media img { width: 100%; height: 100%; object-fit: cover; }
+    .edition-poster { width: 100%; height: 100%; object-fit: contain; background: #000; }
+    .edition-hashtags { display: block; margin-top: 10px; color: var(--navy); font-family: "Libre Franklin", sans-serif; font-size: .8rem; font-weight: 700; }
+    .today-topline { margin: 27px 0 0; padding: 14px 17px; background: var(--alert); color: #fff; font-weight: 700; font-size: .88rem; }
+    .daily-archive { padding: 70px 0 78px; background: var(--paper); }
+    .archive-intro { display: flex; align-items: end; justify-content: space-between; gap: 28px; margin-bottom: 30px; padding-bottom: 19px; border-bottom: 2px solid var(--ink); }
+    .archive-intro h2 { margin: 0; font-size: clamp(1.8rem, 3vw, 2.8rem); line-height: 1.2; }
+    .archive-intro p { max-width: 520px; margin: 0; color: var(--muted); font-size: .9rem; }
+    .day-entry { background: var(--surface); border-top: 5px solid var(--navy); box-shadow: 0 12px 30px rgba(5,11,24,.09); }
+    .day-entry + .day-entry { margin-top: 28px; }
+    .day-date { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 18px 22px; border-bottom: 1px solid var(--line); }
+    .day-date h3 { margin: 0; font-size: 1.18rem; }
+    .day-date span { color: var(--alert); font-family: "Libre Franklin", sans-serif; font-size: .72rem; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; }
+    .day-pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(330px, .85fr); }
+    .day-digest { padding: 24px 26px 26px; }
+    .day-digest h4, .day-video h4 { margin: 0 0 12px; color: var(--alert); font-size: .84rem; letter-spacing: .02em; }
+    .day-digest p { margin: 0; color: var(--muted); font-size: .88rem; line-height: 1.75; }
+    .day-digest ul { margin: 14px 0 0; padding-left: 1.2em; color: var(--ink); font-size: .86rem; }
+    .day-digest li + li { margin-top: 7px; }
+    .day-video { padding: 24px 26px 26px; border-left: 1px solid var(--line); }
+    .day-video video { width: 100%; aspect-ratio: 16/9; background: #000; object-fit: contain; }
+    .day-video-meta { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 11px; }
+    .day-video-meta span { color: var(--muted); font-size: .74rem; }
+    .day-video-meta a { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; padding: 9px 14px; background: var(--navy); color: #fff; text-decoration: none; font-size: .75rem; font-weight: 800; }
+    .legacy-archive { display: none; }
+    section { padding: 86px 0; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 30px; margin-bottom: 34px; padding-bottom: 20px; border-bottom: 2px solid var(--ink); }
+    .section-head h2 { margin: 0; font-size: clamp(1.7rem, 3vw, 2.6rem); line-height: 1.15; letter-spacing: -.025em; }
+    .section-head p { margin: 0; max-width: 510px; color: var(--muted); font-size: .93rem; }
+    .edition-layout { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(270px, .65fr); gap: 34px; align-items: start; }
+    .video-frame { background: #000; box-shadow: var(--shadow); }
+    .player-stage { position: relative; aspect-ratio: 16/9; overflow: hidden; background: #000; }
+    video { width: 100%; height: 100%; aspect-ratio: 16/9; background: #000; object-fit: contain; }
+    .play-overlay { position: absolute; inset: 0; display: grid; place-items: center; border: 0; background: linear-gradient(rgba(3,8,18,.12), rgba(3,8,18,.58)); color: #fff; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+    .play-overlay[hidden] { display: none; }
+    .play-button-inner { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 18px 24px; background: rgba(4,9,22,.9); border: 1px solid rgba(255,255,255,.42); box-shadow: 0 12px 34px rgba(0,0,0,.38); font-weight: 800; }
+    .play-disc { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; background: var(--signal); color: #111; font-family: "Libre Franklin", sans-serif; font-size: 1.55rem; line-height: 1; padding-left: 4px; }
+    .play-label { font-size: .94rem; }
+    .video-help { padding: 12px 20px; background: var(--navy-2); color: #dbe2ee; border-top: 1px solid rgba(255,255,255,.14); display: flex; align-items: center; justify-content: space-between; gap: 16px; font-size: .8rem; }
+    .video-help p { margin: 0; }
+    .video-direct { flex: 0 0 auto; color: var(--signal); font-weight: 800; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    .video-direct:hover, .video-direct:focus-visible { color: #ffe189; }
+    .video-meta { padding: 18px 20px; background: var(--surface); border: 1px solid var(--line); border-top: 0; display: flex; justify-content: space-between; gap: 20px; }
+    .video-meta strong { display: block; font-size: .98rem; }
+    .video-meta span { color: var(--muted); font-size: .78rem; }
+    .story-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+    .story-list li { display: grid; grid-template-columns: 34px 1fr; gap: 14px; padding: 17px 0; border-bottom: 1px solid var(--line); }
+    .story-list .num { color: var(--alert); font-family: "Libre Franklin", sans-serif; font-weight: 800; font-size: .78rem; padding-top: 3px; }
+    .story-list strong { display: block; line-height: 1.45; font-size: .92rem; }
+    .story-list small { display: block; margin-top: 3px; color: var(--muted); font-size: .75rem; }
+    .edition-caption { margin: 24px 0 0; padding: 18px 20px; background: color-mix(in srgb, var(--surface) 76%, var(--navy) 24%); border-left: 4px solid var(--signal); font-weight: 600; }
+    .daily-digest { padding-block: 74px; background: var(--navy); color: #fff; border-top: 5px solid var(--signal); }
+    .digest-masthead { display: grid; grid-template-columns: 1fr auto; gap: 28px; align-items: end; padding-bottom: 26px; border-bottom: 1px solid rgba(255,255,255,.24); }
+    .digest-label { display: block; margin-bottom: 10px; color: var(--signal); font-family: "Libre Franklin", "Noto Sans Myanmar", sans-serif; font-size: .76rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .digest-masthead h2 { margin: 0; font-size: clamp(1.8rem, 3.5vw, 3.2rem); line-height: 1.25; letter-spacing: -.025em; }
+    .digest-date { margin: 0; color: #f2d268; font-weight: 800; white-space: nowrap; }
+    .digest-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 32px; }
+    .digest-part { padding: 0 30px; }
+    .digest-part:first-child { padding-left: 0; }
+    .digest-part:last-child { padding-right: 0; }
+    .digest-part + .digest-part { border-left: 1px solid rgba(255,255,255,.2); }
+    .digest-part h3 { margin: 0 0 17px; color: var(--signal); font-size: 1.18rem; line-height: 1.4; }
+    .digest-photo { width: 100%; aspect-ratio: 16 / 10; margin-bottom: 18px; object-fit: cover; border-bottom: 3px solid var(--signal); }
+    .digest-part p { margin: 0; color: #eef1f6; font-size: .96rem; line-height: 1.9; }
+    .digest-part p + p { margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,.13); }
+    .archive { padding-top: 0; }
+    .archive-card { display: grid; grid-template-columns: minmax(180px, 290px) 1fr auto; align-items: center; gap: 26px; padding: 22px; background: var(--surface); border-top: 4px solid var(--navy); box-shadow: 0 10px 28px rgba(5, 11, 24, .08); }
+    .archive-card + .archive-card { margin-top: 22px; }
+    .archive-card img { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
+    .archive-copy time { display: block; margin-bottom: 7px; color: var(--alert); font-family: "Libre Franklin", sans-serif; font-size: .72rem; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; }
+    .archive-copy h3 { margin: 0 0 7px; font-size: 1.08rem; line-height: 1.4; }
+    .archive-copy p { margin: 0; color: var(--muted); font-size: .84rem; }
+    .archive-link { min-height: 44px; display: inline-flex; align-items: center; padding: 10px 16px; background: var(--navy); color: #fff; text-decoration: none; font-size: .8rem; font-weight: 800; white-space: nowrap; }
+    .archive-link:hover, .archive-link:focus-visible { background: var(--alert); }
+    .series { background: var(--navy); color: #fff; }
+    .series .section-head { border-bottom-color: rgba(255,255,255,.28); }
+    .series .section-head p { color: #bdc7d8; }
+    .series-layout { display: grid; grid-template-columns: minmax(280px, 390px) minmax(0, 1fr); gap: clamp(38px, 7vw, 86px); align-items: center; }
+    .series-player { background: #000; box-shadow: 0 22px 54px rgba(0,0,0,.44); }
+    .series-player video { width: 100%; height: auto; aspect-ratio: 9/16; object-fit: contain; }
+    .series-copy .episode { display: inline-block; margin-bottom: 17px; color: var(--signal); font-family: "Libre Franklin", sans-serif; font-size: .76rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; }
+    .series-copy h3 { margin: 0; font-size: clamp(2rem, 4.2vw, 4.2rem); line-height: 1.16; letter-spacing: -.03em; }
+    .series-copy .english-title { display: block; margin-top: 11px; color: #d3dae7; font-family: "Libre Franklin", sans-serif; font-size: clamp(1rem, 1.8vw, 1.35rem); font-weight: 700; letter-spacing: 0; }
+    .series-copy p { max-width: 660px; margin: 24px 0 0; color: #c7d0df; font-size: .98rem; }
+    .series-details { display: flex; flex-wrap: wrap; gap: 10px 18px; margin-top: 26px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.2); color: #aeb9cb; font-family: "Libre Franklin", "Noto Sans Myanmar", sans-serif; font-size: .76rem; font-weight: 700; }
+    .series-download { display: inline-flex; align-items: center; min-height: 46px; margin-top: 28px; padding: 10px 17px; background: var(--signal); color: #111; text-decoration: none; font-size: .82rem; font-weight: 800; }
+    .series-download:hover, .series-download:focus-visible { background: #ffda63; }
+    .news { background: var(--surface); }
+    .news-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 26px; }
+    article { min-width: 0; }
+    .lead-card { grid-column: span 7; }
+    .side-card { grid-column: span 5; }
+    .news-media { position: relative; overflow: hidden; background: var(--navy); }
+    .lead-card .news-media { aspect-ratio: 16/11; }
+    .side-card .news-media { aspect-ratio: 16/11; }
+    .news-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .35s ease; }
+    article:hover .news-media img { transform: scale(1.018); }
+    .category { position: absolute; left: 0; top: 0; padding: 8px 13px; background: var(--alert); color: #fff; font-size: .75rem; font-weight: 800; }
+    .news-body { padding-top: 20px; }
+    .news-body h3 { margin: 0 0 10px; font-size: clamp(1.25rem, 2.2vw, 1.85rem); line-height: 1.4; letter-spacing: -.018em; }
+    .news-body p { margin: 0 0 14px; color: var(--muted); font-size: .93rem; }
+    .byline { display: flex; flex-wrap: wrap; gap: 12px; color: var(--muted); font-family: "Libre Franklin", sans-serif; font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .065em; }
+    .more-grid { grid-column: 1/-1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 8px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .brief { padding: 24px 24px 24px 0; }
+    .brief + .brief { padding-left: 24px; border-left: 1px solid var(--line); }
+    .brief h3 { margin: 7px 0; font-size: 1rem; line-height: 1.5; }
+    .brief p { margin: 0; color: var(--muted); font-size: .83rem; }
+    .brief .place { color: var(--alert); font-family: "Libre Franklin", sans-serif; font-size: .7rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .world-news { background: color-mix(in srgb, var(--paper) 80%, var(--navy) 20%); }
+    .snapshot-date { display: inline-block; margin-top: 6px; color: var(--alert); font-family: "Libre Franklin", sans-serif; font-size: .75rem; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; }
+    .world-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--line); }
+    .world-item { padding: 26px 28px 27px 0; border-bottom: 1px solid var(--line); }
+    .world-item:nth-child(even) { padding-left: 28px; padding-right: 0; border-left: 1px solid var(--line); }
+    .world-item h3 { margin: 0 0 10px; font-size: 1.08rem; line-height: 1.5; }
+    .world-item p { margin: 0 0 14px; color: var(--muted); font-size: .88rem; }
+    .world-source { color: var(--alert); font-family: "Libre Franklin", sans-serif; font-size: .69rem; font-weight: 800; letter-spacing: .055em; text-transform: uppercase; }
+    .statements { background: var(--navy); color: #fff; }
+    .statements .section-head { border-bottom-color: rgba(255,255,255,.28); }
+    .statements .section-head p { color: #bdc7d8; }
+    .statement-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid rgba(255,255,255,.2); }
+    .statement-item { padding: 28px 30px 30px 0; border-bottom: 1px solid rgba(255,255,255,.2); }
+    .statement-item:nth-child(even) { padding-left: 30px; padding-right: 0; border-left: 1px solid rgba(255,255,255,.2); }
+    .statement-item:last-child { grid-column: 1 / -1; padding-right: 0; }
+    .statement-date { display: block; margin-bottom: 9px; color: var(--signal); font-family: "Libre Franklin", "Noto Sans Myanmar", sans-serif; font-size: .74rem; font-weight: 800; letter-spacing: .045em; }
+    .statement-item h3 { margin: 0 0 10px; color: #fff; font-size: 1.09rem; line-height: 1.5; }
+    .statement-item p { margin: 0 0 15px; color: #cbd3e2; font-size: .89rem; }
+    .statement-source { color: #f2d268; font-family: "Libre Franklin", "Noto Sans Myanmar", sans-serif; font-size: .72rem; font-weight: 800; letter-spacing: .035em; }
+    .statement-source a { text-underline-offset: 3px; }
+    .statement-source a:hover, .statement-source a:focus-visible { color: #fff; }
+    .mission { position: relative; background: var(--navy); color: #fff; }
+    .mission-grid { display: grid; grid-template-columns: 280px 1fr; gap: clamp(38px, 8vw, 100px); align-items: center; }
+    .seal { width: min(100%, 280px); aspect-ratio: 1; border-radius: 50%; overflow: hidden; box-shadow: 0 0 0 1px rgba(255,255,255,.2), 0 18px 50px rgba(0,0,0,.4); }
+    .seal img { width: 100%; height: 100%; object-fit: cover; }
+    .mission h2 { margin: 0 0 20px; font-size: clamp(2rem, 4vw, 3.8rem); line-height: 1.18; }
+    .mission p { max-width: 720px; margin: 0; color: #d3d9e5; font-size: 1.04rem; }
+    .principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 42px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,.2); }
+    .principles strong { display: block; margin-bottom: 4px; color: var(--signal); font-size: .86rem; }
+    .principles span { color: #bbc4d5; font-size: .79rem; }
+    .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+    .gallery-button { border: 0; padding: 0; background: transparent; color: inherit; cursor: zoom-in; position: relative; overflow: hidden; text-align: left; }
+    .gallery-button img { width: 100%; aspect-ratio: 1; object-fit: cover; }
+    .gallery-button::after { content: "ပုံကြီးကြည့်ရန်"; position: absolute; inset: auto 14px 14px auto; padding: 7px 10px; background: rgba(4,9,22,.84); color: #fff; font-size: .7rem; font-weight: 700; opacity: 0; transition: opacity .2s ease; }
+    .gallery-button:hover::after, .gallery-button:focus-visible::after { opacity: 1; }
+    .beauty { background: var(--surface); }
+    .beauty-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 18px; }
+    .beauty-card { grid-column: span 4; background: var(--navy); color: #fff; }
+    .beauty-card:first-child { grid-column: span 7; }
+    .beauty-card:nth-child(2) { grid-column: span 5; }
+    .beauty-card img { aspect-ratio: 4/3; }
+    .beauty-card:first-child img, .beauty-card:nth-child(2) img { aspect-ratio: 16/10; }
+    .beauty-caption { display: block; min-height: 54px; padding: 13px 15px 12px; border-top: 3px solid var(--signal); font-size: .9rem; font-weight: 700; }
+    .beauty-card::after { bottom: 68px; }
+    footer { background: #040916; color: #c5ccda; padding: 34px 0 calc(34px + env(safe-area-inset-bottom)); border-top: 4px solid var(--alert); }
+    .footer-row { display: flex; justify-content: space-between; gap: 30px; align-items: center; }
+    .footer-row p { margin: 0; font-size: .8rem; }
+    .footer-domain { display: block; margin-top: 5px; color: var(--signal); font-family: "Libre Franklin", sans-serif; font-size: .92rem; font-weight: 800; letter-spacing: .015em; }
+    .footer-note { color: #aab3c3; text-align: right; }
+    dialog { width: min(920px, calc(100% - 28px)); max-height: calc(100dvh - 28px); padding: 0; border: 0; background: transparent; overflow: visible; }
+    dialog::backdrop { background: rgba(2,5,12,.88); }
+    .lightbox-inner { position: relative; background: #050914; box-shadow: 0 24px 80px #000; }
+    .lightbox-inner img { width: 100%; max-height: calc(100dvh - 56px); object-fit: contain; }
+    .close { position: absolute; right: 10px; top: 10px; width: 44px; height: 44px; border: 1px solid rgba(255,255,255,.35); border-radius: 50%; background: rgba(4,9,22,.82); color: #fff; font-size: 1.35rem; cursor: pointer; }
+    :focus-visible { outline: 3px solid var(--signal); outline-offset: 3px; }
+    @media (max-width: 880px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-copy { min-height: 510px; padding: 58px max(24px, calc((100vw - 760px)/2)) 50px; }
+      .hero-copy::after { display: none; }
+      .hero-art { min-height: 0; aspect-ratio: 16/10; }
+      .hero-art::after { background: linear-gradient(0deg, rgba(4,9,22,.52), transparent 42%); }
+      .edition-layout { grid-template-columns: 1fr; }
+      .series-layout { grid-template-columns: minmax(240px, 320px) minmax(0, 1fr); gap: 38px; }
+      .mission-grid { grid-template-columns: 220px 1fr; gap: 38px; }
+    }
+    @media (max-width: 680px) {
+      .shell { width: min(100% - 28px, 620px); }
+      .utility .shell { min-height: 36px; font-size: .68rem; }
+      .mission-short { display: none; }
+      .nav { position: sticky; }
+      .nav .shell { min-height: 0; display: block; padding-block: 8px; }
+      .nav-links { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; }
+      .nav-links a { min-height: 38px; display: inline-flex; align-items: center; justify-content: center; padding: 5px 3px; text-align: center; font-size: .69rem; line-height: 1.3; }
+      .edition-mark { display: none; }
+      .safety-feature { padding: 42px 0 48px; }
+      .safety-card { grid-template-columns: 1fr; gap: 20px; padding: 18px; }
+      .safety-download { width: 100%; }
+      .today-news { padding: 42px 0 48px; }
+      .today-heading { display: block; padding-bottom: 20px; }
+      .today-heading p { margin-top: 12px; white-space: normal; }
+      .today-grid { grid-template-columns: 1fr; gap: 36px; margin-top: 26px; }
+      .today-video-note { align-items: stretch; flex-direction: column; }
+      .today-video-note a { width: 100%; }
+      .today-breaking { grid-template-columns: 1fr; gap: 20px; padding: 18px; }
+      .today-breaking-media { width: min(100%, 360px); min-height: 330px; margin-inline: auto; }
+      .today-breaking-label { align-items: flex-start; flex-direction: column; gap: 5px; }
+      .today-breaking-link { width: 100%; }
+      .daily-archive { padding: 52px 0 60px; }
+      .archive-intro { display: block; }
+      .archive-intro p { margin-top: 12px; }
+      .day-date { display: block; padding: 16px 18px; }
+      .day-date span { display: block; margin-top: 6px; }
+      .day-pair { grid-template-columns: 1fr; }
+      .day-digest, .day-video { padding: 20px 18px 22px; }
+      .day-video { border-left: 0; border-top: 1px solid var(--line); }
+      .day-video-meta { align-items: stretch; flex-direction: column; }
+      .day-video-meta a { width: 100%; }
+      .hero-copy { min-height: 470px; padding-top: 48px; }
+      h1 { font-size: clamp(2.2rem, 11vw, 3.5rem); }
+      .hero-summary { font-size: .93rem; margin: 24px 0; }
+      .hero-actions { align-items: stretch; }
+      .button { flex: 1 1 150px; }
+      .breaking-strip .shell { grid-template-columns: 1fr; gap: 3px; padding-block: 10px; }
+      .breaking-text { border-left: 0; padding-left: 0; font-size: .8rem; }
+      section { padding: 62px 0; }
+      .section-head { display: block; }
+      .section-head p { margin-top: 12px; }
+      .play-button-inner { padding: 14px 18px; }
+      .play-disc { width: 54px; height: 54px; font-size: 1.3rem; }
+      .video-help { align-items: flex-start; flex-direction: column; gap: 7px; padding: 12px 14px; }
+      .video-meta { display: block; }
+      .video-meta span { display: block; margin-top: 5px; }
+      .archive-card { grid-template-columns: 120px 1fr; gap: 16px; padding: 16px; }
+      .archive-link { grid-column: 1 / -1; justify-content: center; }
+      .digest-masthead { grid-template-columns: 1fr; gap: 10px; align-items: start; }
+      .digest-date { white-space: normal; }
+      .digest-grid { grid-template-columns: 1fr; margin-top: 24px; }
+      .digest-part, .digest-part:first-child, .digest-part:last-child { padding: 23px 0; }
+      .digest-part + .digest-part { border-left: 0; border-top: 1px solid rgba(255,255,255,.2); }
+      .digest-part:first-child { padding-top: 0; }
+      .digest-part:last-child { padding-bottom: 0; }
+      .series-layout { grid-template-columns: 1fr; }
+      .series-player { width: min(100%, 380px); margin-inline: auto; }
+      .series-copy { text-align: center; }
+      .series-copy p { margin-inline: auto; }
+      .series-details { justify-content: center; }
+      .lead-card, .side-card { grid-column: 1/-1; }
+      .more-grid { grid-template-columns: 1fr; }
+      .brief, .brief + .brief { padding: 19px 0; border-left: 0; border-top: 1px solid var(--line); }
+      .brief:first-child { border-top: 0; }
+      .world-grid { grid-template-columns: 1fr; }
+      .world-item, .world-item:nth-child(even) { padding: 21px 0; border-left: 0; }
+      .statement-list { grid-template-columns: 1fr; }
+      .statement-item, .statement-item:nth-child(even), .statement-item:last-child { grid-column: auto; padding: 22px 0; border-left: 0; }
+      .mission-grid { grid-template-columns: 1fr; }
+      .seal { width: 160px; }
+      .principles { grid-template-columns: 1fr; gap: 18px; }
+      .gallery-grid { gap: 10px; }
+      .beauty-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .beauty-card, .beauty-card:first-child, .beauty-card:nth-child(2) { grid-column: auto; }
+      .beauty-card img, .beauty-card:first-child img, .beauty-card:nth-child(2) img { aspect-ratio: 4/3; }
+      .gallery-button::after { opacity: 1; }
+      .footer-row { display: block; }
+      .footer-note { margin-top: 12px !important; text-align: left; }
+    }
+    @media (max-width: 420px) {
+      .nav .shell { gap: 8px; }
+      .nav-links { gap: 8px; }
+      .nav-links a { font-size: .64rem; }
+      .edition-mark { font-size: .68rem; }
+      .hero-art { aspect-ratio: 4/3; }
+      .gallery-grid, .beauty-grid { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div id="fb-root"></div>
+  <script async defer src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2"></script>
+  <div class="utility">
+    <div class="shell">
+      <span class="date">OCTOBER 14, 2026</span>
+      <span><span class="site-domain">thevoiceofarakan.com</span><span class="mission-short"> · Daily reporting from Arakan</span></span>
+    </div>
+  </div>
+
+  <nav class="nav" aria-label="Main navigation">
+    <div class="shell">
+      <div class="edition-mark">ညနေသတင်း</div>
+      <div class="nav-links">
+        <a href="#today">ယနေ့သတင်း</a>
+        <a href="#archive">နေ့စဉ်မှတ်တမ်း</a>
+        <a href="#reports">သတင်းများ</a>
+        <a href="#statements">ULA</a>
+        <a href="#world">ကမ္ဘာ</a>
+        <a href="#beauty">အလှ</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section id="safety" class="safety-feature" aria-labelledby="safety-title">
+      <div class="shell">
+        <div class="safety-card">
+          <div class="safety-media">
+            <video controls playsinline webkit-playsinline preload="metadata" poster="assets/airstrike-safety-poster.jpg" aria-label="လေကြောင်းအန္တရာယ်မှ ကာကွယ်နည်း — လေကြောင်းဗုံးကြဲမှုမှ လုံခြုံအောင် နေနည်း ပညာပေး ဗီဒီယို">
+              <source src="assets/airstrike-safety.mp4" type="video/mp4">
+              သင့် browser မှ video ကို မဖွင့်နိုင်ပါ။
+            </video>
+          </div>
+          <div class="safety-copy">
+            <div class="safety-brand">
+              <img src="assets/voice-of-arakan-logo-v5.webp" alt="The Voice of Arakan emerald-and-gold emblem with the Arakan map, globe and microphone" width="1600" height="1600">
+              <div>
+                <strong>Featured · Safety Guide</strong>
+                <span>OCT 14 · THE VOICE OF ARAKAN</span>
+              </div>
+            </div>
+            <h2 id="safety-title">လေကြောင်းအန္တရာယ်မှ ကာကွယ်နည်း</h2>
+            <p class="safety-english">Staying Safe from Airstrikes — A Guide for Every Family</p>
+            <p class="safety-intro">✈️ အချက်ပြတွေ၊ ကြိုတင်ပြင်ဆင်မှု၊ ဗုံးကြဲနေစဉ် နဲ့ ပြီးနောက် လုပ်ဆောင်ရမည့်များ — အသိပညာက အသက်ကို ကယ်တယ်၊ မိသားစုနဲ့ ရွာကို မျှဝေပေးပါ။</p>
+            <div class="safety-meta">
+              <span>OCTOBER 14, 2026</span>
+              <span>5:45</span>
+              <span>720p · MP4</span>
+            </div>
+            <a class="safety-download" href="assets/airstrike-safety.mp4" download="Airstrike-Safety-Guide-The-Voice-of-Arakan.mp4">ဗီဒီယို ရယူရန် ↓</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="today" class="today-news" aria-labelledby="today-title">
+      <div class="shell">
+        <div class="today-heading">
+          <div>
+            <span class="digest-label">Today · Daily News Hub</span>
+            <h1 id="today-title">ယနေ့ သတင်း</h1>
+          </div>
+          <p>နိုဝင်ဘာ ၂၁, ၂၀၂၆</p>
+        </div>
+
+        <div class="today-grid">
+          <article class="today-panel" aria-labelledby="today-written-title">
+            <div class="today-panel-label">
+              <h2 id="today-written-title">နောက်ဆုံး စာသတင်း</h2>
+              <span>NOV 21 · ၃ ကဏ္ဍ</span>
+            </div>
+            <div class="today-digest-list">
+              <div class="today-digest-item">
+                <h3>အာရက္ခ</h3>
+                <img class="today-digest-photo" src="assets/digest-nov-21-arakan.jpg" alt="စစ်တွေမြို့ထဲက လူသူနည်းပါးနေတဲ့ လမ်းမ" width="660" height="444">
+                <p><strong>စစ်တွေအနီး တိုက်ပွဲပြင်းထန်၊ ဒေသခံတွေ ထွက်ပြေး —</strong> ပုဏ္ဏားကျွန်းနဲ့ ရသေ့တောင်နယ်စပ်မှာ တိုက်ပွဲတွေ ပြင်းထန်နေပြီး စစ်တွေမှာ စစ်တပ် အင်အား ၅,၀၀၀ ခန့် စုထားပါတယ်။ တတ်နိုင်သူတွေ လေယာဉ်နဲ့ ရန်ကုန်ကို ထွက်ပြေးနေပြီး မတတ်နိုင်သူတွေ ပိတ်မိနေပါတယ်။ AA က ကျန်မြို့ ၃ မြို့ကို သိမ်းယူမယ်လို့ ကြေညာထားပါတယ်။</p>
+              </div>
+              <div class="today-digest-item">
+                <h3>မြန်မာ</h3>
+                <img class="today-digest-photo" src="assets/digest-nov-21-myanmar.jpg" alt="အပြည်ပြည်ဆိုင်ရာ တရားရုံး (ICJ) တရားခွင်" width="800" height="533">
+                <p><strong>ICJ စီရင်ချက်ကို စစ်အစိုးရ ပယ်ချ၊ အရေးယူဖို့ တောင်းဆို —</strong> စစ်အစိုးရက ICJ စီရင်ချက်ကို မတရားဘူးလို့ ပယ်ချခဲ့ပြီး လူ့အခွင့်အရေး အဖွဲ့တွေက ဒဏ်ခတ်အရေးယူမှုတွေ တိုးမြှင့်ဖို့ တောင်းဆိုနေပါတယ်။ အမေရိကန်ကလည်း DKBA ခေါင်းဆောင်တွေကို ဒဏ်ခတ်အရေးယူလိုက်ပါတယ်။</p>
+              </div>
+              <div class="today-digest-item">
+                <h3>ကမ္ဘာ</h3>
+                <img class="today-digest-photo" src="assets/digest-nov-21-world.jpg" alt="ကိယက်ဗ်မြို့က တိုက်ခိုက်မှု ထိခိုက်ခဲ့တဲ့ အဆောက်အအုံ" width="800" height="279">
+                <p><strong>ကိယက်ဗ်ကို ရုရှား အကြီးအကျယ် တိုက်ခိုက်၊ ၉ ဦး သေဆုံး —</strong> ဒုံးကျည်နဲ့ ဒရုန်း တိုက်ခိုက်မှုကြောင့် တံတား ၃ စင်း ထိခိုက်ပြီး သံရုံး အဆောက်အအုံတွေ ပျက်စီးခဲ့ပါတယ်။ EU နဲ့ ဗြိတိန် ထိပ်သီးပွဲမှာလည်း ဆက်ဆံရေး ပြန်လည်စတင်ရေး သဘောတူညီချက် ရခဲ့ပါတယ်။</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="today-breaking today-feature" aria-labelledby="today-evening-title">
+            <div class="today-breaking-media">
+              <img src="assets/evening-news-nov-21.png" alt="The Voice of Arakan November 21 evening news poster — the Grand Mezzanine studio title image" width="1280" height="720">
+            </div>
+            <div class="today-breaking-copy">
+              <div class="today-breaking-label">
+                <strong>Latest evening news</strong>
+                <span>NOV 21 · THE VOICE OF ARAKAN</span>
+              </div>
+              <h2 id="today-evening-title">ပုဏ္ဏားကျွန်းအနီး တိုက်ပွဲပြင်းထန် — စစ်တွေမှာ တပ်အင်အား ၅,၀၀၀ ခန့် စုစည်း</h2>
+              <p>Heavy fighting near Ponnagyun as some 5,000 junta troops mass in Sittwe — the Arakan Army vows to take the three remaining towns, the junta rejects the ICJ ruling, and Russia pounds Kyiv. Full story list in the latest edition below.</p>
+              <a class="today-breaking-link" href="#latest">Read the edition ↓</a>
+            </div>
+          </article>
+
+          <article class="today-breaking" aria-labelledby="today-breaking-title">
+            <div class="today-breaking-media" aria-label="Facebook breaking news video player">
+              <div class="fb-video" data-href="https://facebook.com/reel/1631628465072712/" data-width="500" data-allowfullscreen="true" data-lazy="true" data-show-text="false">
+                <a class="today-breaking-fallback" href="https://facebook.com/reel/1631628465072712/" target="_blank" rel="noopener noreferrer">▶ Facebook breaking video ဖွင့်ကြည့်ရန်</a>
+              </div>
+            </div>
+            <div class="today-breaking-copy">
+              <div class="today-breaking-label">
+                <strong>Breaking video</strong>
+                <span>OCT 9 · စစ်တွေ</span>
+              </div>
+              <h2 id="today-breaking-title">🚨 အာရက္ခဒေသအရေးပေါ်သတင်း — စစ်တွေတိုက်ပွဲ ၃ ရက်မြောက်</h2>
+              <p>🚨 အာရက္ခဒေသအရေးပေါ်သတင်း — စစ်တွေတိုက်ပွဲ ၃ ရက်မြောက်။ ငပြီကျွန်းမှာ နေဗီ ၂ စီး မီးခိုးထွက်ပြီး ဆုတ်။ ဒီမနက် ထပ်ကမ်းတက်ဖို့ ကြိုးစား။</p>
+              <a class="today-breaking-link" href="https://facebook.com/reel/1631628465072712/" target="_blank" rel="noopener noreferrer">Facebook မှာ ကြည့်ရန် ↗</a>
+            </div>
+          </article>
+
+          <article class="today-breaking today-feature" aria-labelledby="today-facts-title">
+            <div class="today-breaking-media">
+              <video controls playsinline webkit-playsinline preload="metadata" poster="assets/facts-deepsea-ep2.jpg" aria-label="အထူးအဆန်း အပိုင်း ၂ — သမုဒ္ဒရာနက်ထဲက အလင်းတန်းများ ဗီဒီယို">
+                <source src="assets/facts-deepsea-ep2.mp4" type="video/mp4">
+                သင့် browser မှ video ကို မဖွင့်နိုင်ပါ။
+              </video>
+            </div>
+            <div class="today-breaking-copy">
+              <div class="today-breaking-label">
+                <strong>အထူးအဆန်း · Amazing Facts</strong>
+                <span>OCT 12 · 1:44 · အပိုင်း ၂</span>
+              </div>
+              <h2 id="today-facts-title">သမုဒ္ဒရာနက်ထဲက အလင်းတန်းများ</h2>
+              <p>နေရောင်ခြည် လုံးဝမရောက်တဲ့ သမုဒ္ဒရာနက်ထဲမှာ ကိုယ်တိုင်အလင်းထုတ်နိုင်တဲ့ အံ့ဩစရာ သတ္တဝါ ၅ မျိုး — မီးထွန်းငါး၊ vampire ပြည်ကြီး၊ ဂျပန် firefly ပြည်ကြီး၊ dragonfish နဲ့ atolla ရေခူတို့ကို အင်္ဂလိပ်အသံဖတ်ကြားချက်နဲ့ တင်ဆက်ထားသည်။</p>
+              <a class="today-breaking-link" href="assets/facts-deepsea-ep2.mp4" download="Amazing-Facts-Ep2-Glowing-Deep-Sea.mp4">ဗီဒီယို ရယူရန် ↓</a>
+            </div>
+          </article>
+
+          <article class="today-breaking today-feature" aria-labelledby="today-facts-ep3-title">
+            <div class="today-breaking-media">
+              <video controls playsinline webkit-playsinline preload="metadata" poster="assets/facts-aircraft-ep3.jpg" aria-label="အထူးအဆန်း အပိုင်း ၃ — လူတွေမမြင်ဖူးတဲ့ အနာဂတ် လေယာဉ် ၅ စီး ဗီဒီယို">
+                <source src="assets/facts-aircraft-ep3.mp4" type="video/mp4">
+                သင့် browser မှ video ကို မဖွင့်နိုင်ပါ။
+              </video>
+            </div>
+            <div class="today-breaking-copy">
+              <div class="today-breaking-label">
+                <strong>အထူးအဆန်း · Amazing Facts</strong>
+                <span>OCT 13 · 2:00 · အပိုင်း ၃</span>
+              </div>
+              <h2 id="today-facts-ep3-title">လူတွေမမြင်ဖူးတဲ့ အနာဂတ် လေယာဉ် ၅ စီး</h2>
+              <p>လူတွေ တစ်ခါမှ မမြင်ဖူးသေးတဲ့ အနာဂတ်လေယာဉ် ၅ စီး — ဆီစားအနည်းဆုံး Celera 500L၊ အသံတိတ်နီးပါး ပျံသန်းနိုင်တဲ့ NASA X-59၊ အတောင်ပျံပေါင်းစပ်ဒီဇိုင်း JetZero Z4၊ V ပုံသဏ္ဌာန် Flying-V နဲ့ အသံထက်မြန်တဲ့ Boom Overture တို့ကို အင်္ဂလိပ်အသံဖတ်ကြားချက်နဲ့ တင်ဆက်ထားသည်။</p>
+              <a class="today-breaking-link" href="assets/facts-aircraft-ep3.mp4" download="Amazing-Facts-Ep3-Future-Aircraft.mp4">ဗီဒီယို ရယူရန် ↓</a>
+            </div>
+          </article>
+
+          <article class="today-breaking today-feature" aria-labelledby="today-facts-ep4-title">
+            <div class="today-breaking-media">
+              <video controls playsinline webkit-playsinline preload="metadata" poster="assets/facts-wildlife-ep4.jpg" aria-label="အထူးအဆန်း အပိုင်း ၄ — တောထဲက အံ့ဩစရာ တောကောင် ၅ ကောင် ဗီဒီယို">
+                <source src="assets/facts-wildlife-ep4.mp4" type="video/mp4">
+                သင့် browser မှ video ကို မဖွင့်နိုင်ပါ။
+              </video>
+            </div>
+            <div class="today-breaking-copy">
+              <div class="today-breaking-label">
+                <strong>အထူးအဆန်း · Amazing Facts</strong>
+                <span>OCT 14 · 1:31 · အပိုင်း ၄</span>
+              </div>
+              <h2 id="today-facts-ep4-title">တောထဲက အံ့ဩစရာ တောကောင် ၅ ကောင်</h2>
+              <p>တောထဲက အံ့ဩစရာ တောကောင် ၅ ကောင် — ၁။ ကျား - ညဘက် ၆ ဆ ပိုမြင်နိုင်တယ်၊ ၂။ ဆင် - ခြေထောက်နဲ့ စကားပြောတယ်၊ ၃။ ဇီးကွက် - ခေါင်း ၂၇၀ ဒီဂရီ လှည့်နိုင်တယ်၊ ၄။ ပုတ်သင်ညို - အရောင် ပြောင်းနိုင်တယ်၊ ၅။ မြွေပျံ - အတောင်မပါဘဲ ပျံနိုင်တယ် တို့ကို အင်္ဂလိပ်အသံဖတ်ကြားချက်နဲ့ တင်ဆက်ထားသည်။</p>
+              <a class="today-breaking-link" href="assets/facts-wildlife-ep4.mp4" download="Amazing-Facts-Ep4-Forest-Wildlife.mp4">ဗီဒီယို ရယူရန် ↓</a>
+            </div>
+          </article>
+
+          <article class="today-breaking today-feature" aria-labelledby="today-facts-ep5-title">
+            <div class="today-breaking-media">
+              <video controls playsinline webkit-playsinline preload="metadata" poster="assets/facts-earth-ep5.jpg" aria-label="အထူးအဆန်း အပိုင်း ၅ — ကမ္ဘာကြီးရဲ့ အံ့ဩစရာ ပြောင်းလဲမှု ၅ ခု ဗီဒီယို">
+                <source src="assets/facts-earth-ep5.mp4" type="video/mp4">
+                သင့် browser မှ video ကို မဖွင့်နိုင်ပါ။
+              </video>
+            </div>
+            <div class="today-breaking-copy">
+              <div class="today-breaking-label">
+                <strong>အထူးအဆန်း · Amazing Facts</strong>
+                <span>OCT 13 · 2:22 · အပိုင်း ၅</span>
+              </div>
+              <h2 id="today-facts-ep5-title">ကမ္ဘာကြီးရဲ့ အံ့ဩစရာ ပြောင်းလဲမှု ၅ ခု</h2>
+              <p>ကျွန်တော်တို့ နေထိုင်ရာ ကမ္ဘာကြီးဟာ နေ့တိုင်း ပြောင်းလဲနေတယ် — ပိုမြန်မြန် လည်လာတဲ့ ကမ္ဘာ့အလှည့်၊ တစ်နှစ်ကို ၃.၈ စင်တီမီတာ ဝေးထွက်သွားနေတဲ့ လမင်း၊ နှစ်ပိုင်းကွဲထွက်နေတဲ့ အာဖရိကတိုက်၊ ဆိုက်ဘေးရီးယားဘက် အမြန်ရွေ့နေတဲ့ သံလိုက်မြောက်ဝင်ရိုးစွန်း၊ တစ်ခေတ်က စိမ်းလန်းခဲ့တဲ့ ဆာဟာရ သဲကန္တာရတို့ကို အင်္ဂလိပ်အသံဖတ်ကြားချက်နဲ့ တင်ဆက်ထားသည်။</p>
+              <a class="today-breaking-link" href="assets/facts-earth-ep5.mp4" download="Amazing-Facts-Ep5-Changing-Earth.mp4">ဗီဒီယို ရယူရန် ↓</a>
+            </div>
+          </article>
+
+        </div>
+        <p class="today-topline">ထိပ်တန်းသတင်း — စစ်တွေ-ပုဏ္ဏားကျွန်း တိုက်ပွဲပြင်းထန် — AA က အမြင့်ကျွန်းက စခန်း ၂ ခု ထပ်သိမ်းကာ စုစုပေါင်း ၉ ခု ဖြစ်လာတယ်လို့ သတင်းတွေက ဆိုပါတယ်။</p>
+      </div>
+    </section>
+
+    <section id="archive" class="daily-archive" aria-labelledby="archive-title">
+      <div class="shell">
+        <div class="archive-intro">
+          <h2 id="archive-title">နေ့စဉ် သတင်းမှတ်တမ်း</h2>
+          <p>ရက်စွဲအလိုက် စာသတင်းနှင့် ဗီဒီယိုသတင်းကို တစ်နေရာတည်းမှာ အလွယ်တကူ ပြန်ကြည့်နိုင်သည်။ အသစ်ဆုံးရက်ကို အပေါ်ဆုံးတွင် ထားရှိသည်။</p>
+        </div>
+
+        <article class="day-entry">
+          <div class="day-date">
+            <h3>နိုဝင်ဘာ ၂၁, ၂၀၂၆</h3>
+            <span>Morning digest + evening edition</span>
+          </div>
+          <div class="day-pair">
+            <div class="day-digest">
+              <h4>နေ့စဉ်သတင်းအကျဉ်းချုပ်</h4>
+              <p>စစ်တွေအနီး တိုက်ပွဲပြင်းထန် | ICJ စီရင်ချက်ကို စစ်အစိုးရ ပယ်ချ | ကိယက်ဗ်ကို ရုရှား အကြီးအကျယ် တိုက်ခိုက်</p>
+              <ul>
+                <li>အာရက္ခ — စစ်တွေအနီး တိုက်ပွဲပြင်းထန်၊ ဒေသခံတွေ ထွက်ပြေး၊ AA က ကျန်မြို့ ၃ မြို့ကို သိမ်းယူမယ်လို့ ကြေညာ</li>
+                <li>မြန်မာ — ICJ စီရင်ချက်ကို စစ်အစိုးရ ပယ်ချ၊ DKBA ခေါင်းဆောင်တွေကို အမေရိကန် ဒဏ်ခတ်အရေးယူ</li>
+                <li>ကမ္ဘာ — ကိယက်ဗ်ကို ရုရှား အကြီးအကျယ် တိုက်ခိုက်၊ တံတား ၃ စင်း ထိခိုက်၊ EU-ဗြိတိန် ဆက်ဆံရေး ပြန်လည်စတင်ရေး သဘောတူ</li>
+              </ul>
+            </div>
+            <div class="day-video">
+              <h4>ဗီဒီယိုသတင်း</h4>
+              <video controls playsinline webkit-playsinline preload="metadata" poster="assets/evening-news-nov-21.png" aria-label="November 21 evening news archive video">
+                <source src="assets/evening-news-nov-21.mp4" type="video/mp4">
+                သင့် browser မှ video ကို မဖွင့်နိုင်ပါ။
+              </video>
+              <div class="day-video-meta"><span>5 min 16 sec · မြန်မာ အသံဖတ်ကြားချက် · မြန်မာစာတန်း</span><a href="assets/evening-news-nov-21.mp4" download="The-Voice-of-Arakan-Evening-News-Nov-21-2026.mp4">ရယူရန် ↓</a></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="day-entry">
+          <div class="day-date">
+            <h3>အောက်တိုဘာ ၁၄, ၂၀၂၆</h3>
+            <span>Morning written digest</span>
+          </div>
+          <div class="day-pair">
+            <div class="day-digest">
+              <h4>နေ့စဉ်သတင်းအကျဉ်းချုပ်</h4>
+              <p>စစ်တွေ-ပုဏ္ဏားကျွန်း တိုက်ပွဲပြင်းထန် | ကလေး ၄.၉ သန်း အကူအညီ လိုအပ် | တရုတ်-မြောက်ကိုရီးယား တံတားသစ် ဖွင့်မည်</p>
+              <ul>
+                <li>အာရက္ခ — စစ်တွေ-ပုဏ္ဏားကျွန်း တိုက်ပွဲပြင်းထန်၊ AA က အမြင့်ကျွန်းက စခန်း ၂ ခု ထပ်သိမ်း၊ စုစုပေါင်း ၉ ခု</li>
+                <li>မြန်မာ — ကလေး ၄.၉ သန်း အရေးပေါ် အကူအညီ လိုအပ်၊ ၁.၂ သန်း ကာကွယ်ဆေးနဲ့ ကျန်းမာရေး ပြတ်တောက်</li>
+                <li>ကမ္ဘာ — တရုတ်-မြောက်ကိုရီးယား ယာလူမြစ် တံတားသစ်ကို အောက်တိုဘာ ၁၅ ရက်မှာ ဖွင့်မည်</li>
+              </ul>
+            </div>
+            <div class="day-video">
+              <h4>ယနေ့ ဓာတ်ပုံ</h4>
+              <img class="edition-poster" src="assets/digest-oct-14-arakan.jpg" alt="စစ်တွေမြို့ ဆိပ်ကမ်းနှင့် ငါးဖမ်းလှေများ" width="780" height="585">
+              <div class="day-video-meta"><span>စစ်တွေ ဆိပ်ကမ်း · အာရက္ခ</span></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="day-entry">
+          <div class="day-date">
+            <h3>အောက်တိုဘာ ၁၃, ၂၀၂၆</h3>
+            <span>Evening video edition</span>
+          </div>
+          <div class="day-pair">
+            <div class="day-digest">
+              <h4>ညနေသတင်း အကျဉ်း</h4>
+              <p>အာရက္ခမှာ တစ်ပတ်အတွင်း လေကြောင်းဗုံးကြဲမှုကြောင့် အရပ်သား ၁၃ ဦး သေဆုံး | စစ်ဘေးရှောင်စခန်းများ ဗုံးကြဲခံရပြီး ဆေးရုံတွေ သွေးရှားပါး</p>
+              <ul>
+                <li>တစ်ပတ်အတွင်း လေကြောင်းဗုံးကြဲမှုကြောင့် အရပ်သား ၁၃ ဦး သေဆုံး</li>
+                <li>ပုဏ္ဏားကျွန်း စစ်ဘေးရှောင်စခန်းများ ဗုံးကြဲခံရပြီးနောက် နေထိုင်ရေး အခက်အခဲ</li>
+                <li>သွေးရှားပါးမှုကြောင့် အရေးပေါ်လူနာများ အခက်အခဲဖြစ်</li>
+                <li>စစ်တွေနှင့် ငပြီကျွန်း — စစ်မျက်နှာ ကျယ်လာမှု</li>
+                <li>ဝက်လက် လေကြောင်းတိုက်ခိုက် — ၄ ဦးသေ၊ ၁၃ ဦး ဒဏ်ရာရ</li>
+                <li>ကမ္ဘာ — မြောက်ကိုရီးယား ဒုံးကျည်ပစ်လွှတ်မှု</li>
+              </ul>
+            </div>
+            <div class="day-video">
+              <h4>ဗီဒီယိုသတင်း</h4>
+              <video controls playsinline webkit-playsinline preload="metadata" poster="assets/evening-news-oct-13.png" aria-label="October 13 evening news archive video">
+                <source src="assets/evening-news-oct-13.mp4" type="video/mp4">
+                သင့် browser မှ video ကို မဖွင့်နိုင်ပါ။
+              </video>
+              <div class="day-video-meta"><span>2 min 15 sec · English narration · မြန်မာစာတန်း</span><a href="assets/evening-news-oct-13.mp4" download="The-Voice-of-Arakan-Evening-News-Oct-13-2026.mp4">ရယူရန် ↓</a></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="day-entry">
+          <div class="day-date">
+            <h3>အောက်တိုဘာ ၁၂, ၂၀၂၆</h3>
+            <span>Evening video edition</span>
+          </div>
+          <div class="day-pair">
+            <div class="day-digest">
+              <h4>ညနေသတင်း အကျဉ်း</h4>
+              <p>တစ်ညတည်း မြို့ ၃ မြို့ ဗုံးကြဲခံရ - မင်းပြား ၇ ဦးသေ၊ မြောက်ဦး-မြေပုံ ထိခိုက်၊ ရွှေဘိုကျောင်းလည်း ဗုံးကြဲခံရ</p>
+              <ul>
+                <li>မင်းပြား — စီနိုင်ရွာ ဗုံးကြဲခံရ၊ အရပ်သား ၇ ဦးသေ၊ ၁၇ ဦးကျော် ဒဏ်ရာရ</li>
+                <li>မြောက်ဦး — ရပ်ကွက်တစ်ခုအပေါ် ဗုံး ၂ လုံး ကျရောက်၊ အိမ်ပြိုကျပြီး လူ ၂ ဦး ဒဏ်ရာရ</li>
+                <li>မြေပုံ — မြို့ပေါ် ဗုံးကြဲခံရ၊ အမျိုးသမီး ၁ ဦးသေ၊ ၂ ဦး ဒဏ်ရာရ</li>
+                <li>ရွှေဘို — စစ်ဘေးရှောင်များ ခိုလှုံနေသော ဘုန်းကြီးကျောင်း ဗုံးကြဲခံရ၊ ၂ ဦးသေ၊ ၂၅ ဦး ဒဏ်ရာရ</li>
+              </ul>
+            </div>
+            <div class="day-video">
+              <h4>ညနေသတင်း ပိုစတာ</h4>
+              <img class="edition-poster" src="assets/evening-news-oct-12.png" alt="The Voice of Arakan October 12 evening news poster — the emerald-and-gold news studio title image" width="1920" height="1080">
+              <div class="day-video-meta"><span>English narration · မြန်မာစာတန်း</span></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="day-entry">
+          <div class="day-date">
+            <h3>အောက်တိုဘာ ၉, ၂၀၂၆</h3>
+            <span>Evening video edition</span>
+          </div>
+          <div class="day-pair">
+            <div class="day-digest">
+              <h4>ညနေသတင်း အကျဉ်း</h4>
+              <p>အရေးကြီး အာရက္ခသတင်း ငါးခုကို စုစည်းတင်ဆက်ထားသည်။</p>
+              <ul>
+                <li>စစ်တွေတိုက်ပွဲ ၃ ရက်မြောက် — မြို့အနောက်ဘက်တွင် စစ်မျက်နှာသစ်ဖွင့်</li>
+                <li>ပုဏ္ဏားကျွန်း စစ်ဘေးရှောင်စခန်းများ ဗုံးကြဲခံရ</li>
+                <li>ကျောက်ဖြူ တောင်မော်ဦး ရေတပ်စခန်းဘက်သို့ တိုက်ပွဲတိုးတက်</li>
+                <li>နတ်ရေကန်တောင် သိမ်းပိုက်ရေးထိုးစစ် ဆက်လက်ဖြစ်ပွား</li>
+                <li>ကျောက်တော် လေကြောင်းတိုက်ခိုက်မှု နောက်ဆက်တွဲ</li>
+              </ul>
+            </div>
+            <div class="day-video">
+              <h4>ဗီဒီယိုသတင်း</h4>
+              <video controls playsinline webkit-playsinline preload="metadata" aria-label="October 9 evening news archive video">
+                <source src="assets/evening-news-oct-9-720p.mp4" type="video/mp4">
+                သင့် browser မှ video ကို မဖွင့်နိုင်ပါ။
+              </video>
+              <div class="day-video-meta"><span>3 min 12 sec · English narration · မြန်မာစာတန်း</span><a href="assets/evening-news-oct-9-small.mp4" download="The-Voice-of-Arakan-Evening-News-Oct-9-2026-Low-Bandwidth.mp4">ရယူရန် ↓</a></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="day-entry">
+          <div class="day-date">
+            <h3>အောက်တိုဘာ ၈, ၂၀၂၆</h3>
+            <span>Previous video edition</span>
+          </div>
+          <div class="day-pair">
+            <div class="day-digest">
+              <h4>စာသတင်း အကျဉ်း</h4>
+              <p>အာရက္ခဒေသအတွက် အရေးကြီးဆုံးဖြစ်ရပ် ငါးခုကို နောက်ဆုံးရ မြေပြင်သတင်းများနှင့်အတူ စုစည်းထားသည်။</p>
+              <ul>
+                <li>နတ်ရေကန်စခန်း သိမ်းပိုက်ရေးထိုးစစ် ဆက်လက်ဖြစ်ပွား</li>
+                <li>ငပြီကျွန်း ကမ်းတက်တိုက်ပွဲနှင့် စစ်တွေဘက် စစ်ရေးတင်းမာမှု</li>
+                <li>အမေရိကန်–စစ်ကောင်စီ တိုက်ရိုက်ဆွေးနွေးမှု</li>
+                <li>ရန်ကုန်တွင် အာရက္ခပြန်လာသူများ ထိန်းသိမ်းခံရမှု</li>
+              </ul>
+            </div>
+            <div class="day-video">
+              <h4>ဗီဒီယိုသတင်း</h4>
+              <video controls playsinline webkit-playsinline preload="metadata" poster="assets/evening-news-oct-8.png" aria-label="October 8 evening news archive video">
+                <source src="assets/evening-news-oct-8-720p.mp4" type="video/mp4">
+                <track kind="subtitles" src="assets/evening-news-oct-8-mm.vtt" srclang="my" label="မြန်မာစာတန်း" default>
+              </video>
+              <div class="day-video-meta"><span>4 min 16 sec · မြန်မာစာတန်းထိုး</span><a href="assets/evening-news-oct-8-720p.mp4" download>ရယူရန် ↓</a></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="day-entry">
+          <div class="day-date">
+            <h3>အောက်တိုဘာ ၇, ၂၀၂၆</h3>
+            <span>Daily archive</span>
+          </div>
+          <div class="day-pair">
+            <div class="day-digest">
+              <h4>စာသတင်း အကျဉ်း</h4>
+              <p>စက်တင်ဘာ ၂၈ ကျောက်တော်လေကြောင်းတိုက်ခိုက်မှုအတွက် UN ၏ သက်သေအထောက်အထားတောင်းဆိုမှု၊ စစ်ကောင်စီ၏ လေတပ်အင်အားအသုံးချမှု၊ မကြာခဏ လေကြောင်းတိုက်ခိုက်မှုများ၏ လူထုအပေါ်သက်ရောက်မှုနှင့် မင်းအောင်လှိုင်၏ မလေးရှားခရီးစဉ်တို့ကို စုစည်းတင်ပြထားသည်။</p>
+            </div>
+            <div class="day-video">
+              <h4>ဗီဒီယိုသတင်း</h4>
+              <video controls playsinline webkit-playsinline preload="metadata" poster="assets/evening-news-oct-7.png" aria-label="October 7 evening news archive video">
+                <source src="assets/evening-news-oct-7.mp4" type="video/mp4">
+                <track kind="subtitles" src="assets/evening-news-oct-7-mm.vtt" srclang="my" label="မြန်မာစာတန်း" default>
+              </video>
+              <div class="day-video-meta"><span>5 min 40 sec · မြန်မာစာတန်းထိုး</span><a href="assets/evening-news-oct-7.mp4" download>ရယူရန် ↓</a></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="day-entry">
+          <div class="day-date">
+            <h3>အောက်တိုဘာ ၆, ၂၀၂၆</h3>
+            <span>Daily archive</span>
+          </div>
+          <div class="day-pair">
+            <div class="day-digest">
+              <h4>စာသတင်း အကျဉ်း</h4>
+              <p>စစ်တွေဒေသကွပ်ကဲမှုစစ်ဌာနချုပ် အခြေအနေ၊ တောင်ကုတ် လေကြောင်းတိုက်ခိုက်မှု၊ ပုဏ္ဏားကျွန်း စေတနာ့ဆေးခန်းပျက်စီးမှုနှင့် ကျောက်ဖြူ စစ်ဘေးရှောင်ပြည်သူများ၏ အခြေအနေတို့ကို စုစည်းတင်ပြထားသည်။</p>
+            </div>
+            <div class="day-video">
+              <h4>ဗီဒီယိုသတင်း</h4>
+              <video controls playsinline webkit-playsinline preload="metadata" poster="assets/evening-news-oct-6.png" aria-label="October 6 evening news archive video">
+                <source src="assets/evening-news-oct-6-ios.mp4" type="video/mp4">
+                <track kind="subtitles" src="assets/evening-news-oct-6-mm.vtt" srclang="my" label="မြန်မာစာတန်း" default>
+              </video>
+              <div class="day-video-meta"><span>4 min 24 sec · မြန်မာစာတန်းထိုး</span><a href="assets/evening-news-oct-6-ios.mp4" download>ရယူရန် ↓</a></div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <header class="hero">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="kicker">Latest edition · Arakan</p>
+          <h1>အာရက္ခဒေသရဲ့ နေ့စဉ်သတင်းများ</h1>
+          <span class="english">Documenting each day so the world sees.</span>
+          <p class="hero-summary">November 21 evening news — heavy fighting near Ponnagyun as some 5,000 junta troops mass in Sittwe: the Arakan Army vows to take the three remaining towns, the junta rejects the ICJ ruling, and Russia pounds Kyiv.</p>
+          <div class="hero-actions">
+            <a class="button primary" id="hero-latest" href="#latest">ညနေသတင်း အကျဉ်းကြည့်ရန်</a>
+            <a class="button secondary" href="#reports">သတင်းခေါင်းစဉ်များ</a>
+          </div>
+        </div>
+        <div class="hero-art">
+          <img src="assets/evening-news-nov-21.png" alt="The Voice of Arakan November 21 evening news poster — the Grand Mezzanine studio title image" width="1280" height="720">
+        </div>
+      </div>
+    </header>
+
+    <div class="breaking-strip" role="note" aria-label="Top story">
+      <div class="shell">
+        <span class="breaking-label">Top story</span>
+        <p class="breaking-text">Heavy fighting near Ponnagyun as some 5,000 junta troops mass inside Sittwe</p>
+      </div>
+    </div>
+
+    <section id="latest" aria-labelledby="latest-title">
+      <div class="shell">
+        <div class="section-head">
+          <h2 id="latest-title">Latest Evening News</h2>
+          <p>Saturday, November 21, 2026 · The Voice of Arakan — Evening News</p>
+        </div>
+        <div class="edition-layout">
+          <div class="video-frame">
+            <div class="player-stage">
+              <video controls playsinline webkit-playsinline preload="metadata" poster="assets/evening-news-nov-21.png" aria-label="The Voice of Arakan November 21 evening news video">
+                <source src="assets/evening-news-nov-21.mp4" type="video/mp4">
+                သင့် browser မှ video ကို မဖွင့်နိုင်ပါ။
+              </video>
+            </div>
+            <div class="video-meta">
+              <strong>The Voice of Arakan — Evening News</strong>
+              <span>Saturday, November 21, 2026</span>
+            </div>
+          </div>
+          <ol class="story-list" aria-label="Stories in this edition">
+            <li><span class="num">01</span><div><strong>Arakan — Fighting intensifies near Ponnagyun</strong><small>Heavy fighting near the Ponnagyun–Rathedaung border as some 5,000 junta troops mass in Sittwe; residents who can afford it flee to Yangon by air while others remain trapped.</small></div></li>
+            <li><span class="num">02</span><div><strong>Arakan — AA vows to take the three remaining towns</strong><small>The Arakan Army declares it will capture Sittwe, Kyaukphyu and Manaung, the last towns in Arakan still held by the junta.</small></div></li>
+            <li><span class="num">03</span><div><strong>Arakan — AA and ULA on the ICJ ruling</strong><small>The Arakan Army and the United League of Arakan say they stand on the side of truth in response to the World Court's ruling.</small></div></li>
+            <li><span class="num">04</span><div><strong>Myanmar — Junta rejects the ICJ ruling</strong><small>The junta calls the ruling unjust; the EU hails it as historic, Britain expels the defence attaché and seeks a UN Security Council session, and rights groups demand stronger sanctions.</small></div></li>
+            <li><span class="num">05</span><div><strong>Myanmar — US sanctions DKBA leaders</strong><small>The United States imposes sanctions on leaders of the Democratic Karen Benevolent Army.</small></div></li>
+            <li><span class="num">06</span><div><strong>Myanmar — Remittance rate gap</strong><small>The official exchange rate set for migrant workers' remittances, 4,600 kyat to the dollar, sits far from the market rate.</small></div></li>
+            <li><span class="num">07</span><div><strong>World — ICC warning in the Shenzhen declaration</strong><small>The trilateral declaration issued at Shenzhen carries a warning tied to the International Criminal Court.</small></div></li>
+            <li><span class="num">08</span><div><strong>World — Russia pounds Kyiv</strong><small>A major missile and drone attack damages three bridges and embassy buildings in the Ukrainian capital.</small></div></li>
+            <li><span class="num">09</span><div><strong>World — EU and UK agree a reset</strong><small>The Brussels summit agrees to restart relations between the European Union and Britain.</small></div></li>
+          </ol>
+        </div>
+        <p class="edition-caption">ပုဏ္ဏားကျွန်းအနီး တိုက်ပွဲပြင်းထန်၊ စစ်တွေမှာ တပ်အင်အား ၅,၀၀၀ ခန့် စုစည်း | ICJ စီရင်ချက်ကို စစ်ကောင်စီ ပယ်ချ၊ EU က သမိုင်းဝင် စီရင်ချက်လို့ ကြိုဆို<span class="edition-hashtags">The Voice of Arakan — Evening News · #TheVoiceOfArakan #Arakan #Myanmar #EveningNews</span></p>
+      </div>
+    </section>
+
+    <section id="daily-digest" class="daily-digest" aria-labelledby="daily-digest-title">
+      <div class="shell">
+        <div class="digest-masthead">
+          <div>
+            <span class="digest-label">Daily Written News</span>
+            <h2 id="daily-digest-title">The Voice of Arakan — နေ့စဉ် စာသတင်း</h2>
+          </div>
+          <p class="digest-date">နိုဝင်ဘာ ၂၁, ၂၀၂၆</p>
+        </div>
+        <div class="digest-grid">
+          <article class="digest-part">
+            <h3>အာရက္ခ</h3>
+            <img class="digest-photo" src="assets/digest-nov-21-arakan.jpg" alt="စစ်တွေမြို့ထဲက လူသူနည်းပါးနေတဲ့ လမ်းမ" width="660" height="444">
+            <p><strong>စစ်တွေအနီး တိုက်ပွဲပြင်းထန်၊ ဒေသခံတွေ ထွက်ပြေး</strong></p>
+            <p>ပုဏ္ဏားကျွန်းနဲ့ ရသေ့တောင်နယ်စပ်မှာ တိုက်ပွဲတွေ ပြင်းထန်နေပြီး စစ်တွေမှာ စစ်တပ် အင်အား ၅,၀၀၀ ခန့် စုထားပါတယ်။ တတ်နိုင်သူတွေ လေယာဉ်နဲ့ ရန်ကုန်ကို ထွက်ပြေးနေပြီး မတတ်နိုင်သူတွေ ပိတ်မိနေပါတယ်။ AA က ကျန်မြို့ ၃ မြို့ကို သိမ်းယူမယ်လို့ ကြေညာထားပါတယ်။</p>
+          </article>
+          <article class="digest-part">
+            <h3>မြန်မာ</h3>
+            <img class="digest-photo" src="assets/digest-nov-21-myanmar.jpg" alt="အပြည်ပြည်ဆိုင်ရာ တရားရုံး (ICJ) တရားခွင်" width="800" height="533">
+            <p><strong>ICJ စီရင်ချက်ကို စစ်အစိုးရ ပယ်ချ၊ အရေးယူဖို့ တောင်းဆို</strong></p>
+            <p>စစ်အစိုးရက ICJ စီရင်ချက်ကို မတရားဘူးလို့ ပယ်ချခဲ့ပြီး လူ့အခွင့်အရေး အဖွဲ့တွေက ဒဏ်ခတ်အရေးယူမှုတွေ တိုးမြှင့်ဖို့ တောင်းဆိုနေပါတယ်။ အမေရိကန်ကလည်း DKBA ခေါင်းဆောင်တွေကို ဒဏ်ခတ်အရေးယူလိုက်ပါတယ်။</p>
+          </article>
+          <article class="digest-part">
+            <h3>ကမ္ဘာ</h3>
+            <img class="digest-photo" src="assets/digest-nov-21-world.jpg" alt="ကိယက်ဗ်မြို့က တိုက်ခိုက်မှု ထိခိုက်ခဲ့တဲ့ အဆောက်အအုံ" width="800" height="279">
+            <p><strong>ကိယက်ဗ်ကို ရုရှား အကြီးအကျယ် တိုက်ခိုက်၊ ၉ ဦး သေဆုံး</strong></p>
+            <p>ဒုံးကျည်နဲ့ ဒရုန်း တိုက်ခိုက်မှုကြောင့် တံတား ၃ စင်း ထိခိုက်ပြီး သံရုံး အဆောက်အအုံတွေ ပျက်စီးခဲ့ပါတယ်။ EU နဲ့ ဗြိတိန် ထိပ်သီးပွဲမှာလည်း ဆက်ဆံရေး ပြန်လည်စတင်ရေး သဘောတူညီချက် ရခဲ့ပါတယ်။</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="legacy-archive" class="archive legacy-archive" aria-labelledby="legacy-archive-title">
+      <div class="shell">
+        <div class="section-head">
+          <h2 id="legacy-archive-title">Past editions</h2>
+          <p>Previous evening news briefings from The Voice of Arakan.</p>
+        </div>
+        <article class="archive-card">
+          <img src="assets/evening-news-oct-13.png" alt="The Voice of Arakan October 13 evening news poster" width="1920" height="1080">
+          <div class="archive-copy">
+            <time datetime="2026-10-13">October 13, 2026 · 2 min 15 sec</time>
+            <h3>The Voice of Arakan — Evening News</h3>
+            <p>Thirteen civilians killed by airstrikes across Arakan in a single week — displacement camps bombed in Ponnagyun, hospitals facing a severe blood shortage, and the battlefront widening around Sittwe and Ngapali Island.</p>
+          </div>
+          <a class="archive-link" href="assets/evening-news-oct-13.mp4" download="The-Voice-of-Arakan-Evening-News-Oct-13-2026.mp4">Download edition ↓</a>
+        </article>
+        <article class="archive-card">
+          <img src="assets/evening-news-oct-8.png" alt="The Voice of Arakan October 8 evening news poster" width="1920" height="1080">
+          <div class="archive-copy">
+            <time datetime="2026-10-08">October 8, 2026 · 4 min 16 sec</time>
+            <h3>The Voice of Arakan — Evening News</h3>
+            <p>The Nat Ye Kan hill assault, the Ngapali Island landing battle and rising tension around Sittwe, direct US–junta talks, and Arakan returnees detained in Yangon.</p>
+          </div>
+          <a class="archive-link" href="assets/evening-news-oct-8-720p.mp4" download="The-Voice-of-Arakan-Evening-News-Oct-8-2026.mp4">Download edition ↓</a>
+        </article>
+        <article class="archive-card">
+          <img src="assets/evening-news-oct-7.png" alt="The Voice of Arakan October 7 evening news poster showing displaced Arakan families at a temporary shelter" width="1920" height="1080">
+          <div class="archive-copy">
+            <time datetime="2026-10-07">October 7, 2026 · 5 min 40 sec</time>
+            <h3>The Voice of Arakan — Evening News</h3>
+            <p>The UN evidence request on the September 28 Kyauktaw airstrike, the junta’s airpower strategy, the unseen toll of repeated airstrikes, and Min Aung Hlaing’s Malaysia visit.</p>
+          </div>
+          <a class="archive-link" href="assets/evening-news-oct-7.mp4" download="The-Voice-of-Arakan-Evening-News-Oct-7-2026.mp4">Download edition ↓</a>
+        </article>
+        <article class="archive-card">
+          <img src="assets/evening-news-oct-6.png" alt="The Voice of Arakan October 6 evening news poster showing damaged structures in Ponnagyun" width="1920" height="1080">
+          <div class="archive-copy">
+            <time datetime="2026-10-06">October 6, 2026 · 4 min 24 sec</time>
+            <h3>The Voice of Arakan — Evening News</h3>
+            <p>Sittwe military headquarters, the Taunggok airstrike, damage to a volunteer clinic in Ponnagyun, and the situation facing displaced residents in Kyaukphyu.</p>
+          </div>
+          <a class="archive-link" href="assets/evening-news-oct-6-ios.mp4" download="The-Voice-of-Arakan-Evening-News-Oct-6-2026.mp4">Download edition ↓</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="series" class="series" aria-labelledby="series-title">
+      <div class="shell">
+        <div class="section-head">
+          <h2 id="series-title">နိုင်ငံရေးက ငါနဲ့မဆိုင်ဘူး ဆိုသူများ</h2>
+          <p>နိုင်ငံရေးက လူတိုင်းရဲ့နေ့စဉ်ဘဝကို ဘယ်လိုထိတွေ့နေသလဲ ပြောပြသည့် ဇာတ်လမ်းတိုစီးရီး။</p>
+        </div>
+        <div class="series-layout">
+          <div class="series-player">
+            <video controls playsinline webkit-playsinline preload="metadata" poster="assets/series-ep01-farmer.png" aria-label="Episode 1 The Farmer, an English-language short drama with Burmese subtitles">
+              <source src="assets/series-ep01-farmer.mp4" type="video/mp4">
+              သင့် browser မှ video ကို မဖွင့်နိုင်ပါ။ <a href="assets/series-ep01-farmer.mp4" download>ဗီဒီယိုဖိုင်ကို ရယူပါ။</a>
+            </video>
+          </div>
+          <div class="series-copy">
+            <span class="episode">Episode 01 · Short drama</span>
+            <h3>လယ်သမား<span class="english-title">The Farmer</span></h3>
+            <p>“နိုင်ငံရေးက ငါနဲ့မဆိုင်ဘူး” လို့ ယုံကြည်ခဲ့တဲ့ လယ်သမားတစ်ဦးရဲ့ ဘဝကို အာဏာရှင်စနစ်က ဘယ်လို ရိုက်ခတ်သွားသလဲဆိုတာ တင်ဆက်ထားသည့် ပထမဆုံးဇာတ်လမ်း။</p>
+            <div class="series-details" aria-label="Episode details">
+              <span>1 min 28 sec</span>
+              <span>English dialogue</span>
+              <span>မြန်မာစာတန်းထိုး</span>
+            </div>
+            <a class="series-download" href="assets/series-ep01-farmer.mp4" download="Politics-Is-Not-My-Business-Episode-1-The-Farmer.mp4">အပိုင်း ၁ ဗီဒီယို ရယူရန် ↓</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="reports" class="news" aria-labelledby="reports-title">
+      <div class="shell">
+        <div class="section-head">
+          <h2 id="reports-title">မကြာသေးမီ အာရက္ခသတင်းများ</h2>
+          <p>မြေပြင်ရုပ်ပုံနှင့် ဒေသခံသတင်းဖော်ပြချက်များအပေါ် အခြေခံထားသည့် မကြာသေးမီ အာရက္ခဒေသသတင်းများ။</p>
+        </div>
+        <div class="news-grid">
+          <article class="lead-card">
+            <div class="news-media">
+              <img src="assets/sittwe-report.png" alt="Sittwe report graphic showing a map of Arakan and four reporting images" width="1080" height="1080">
+              <span class="category">စစ်တွေ</span>
+            </div>
+            <div class="news-body">
+              <h3>စစ်တွေ ဒေသကွပ်ကဲမှုစစ်ဌာနချုပ်အပေါ် ဖိအားများလာကြောင်း သတင်းဖော်ပြ</h3>
+              <p>စစ်တွေဒေသအတွင်း နောက်ဆုံးဖြစ်ပေါ်တိုးတက်မှုနှင့် စစ်မိသားစုများ နေရာရွှေ့ပြောင်းမှုအကြောင်းကို ညနေသတင်း၏ ထိပ်ဆုံးမှာ တင်ဆက်ထားသည်။</p>
+              <div class="byline"><span>Local media reporting</span><span>October 6, 2026</span></div>
+            </div>
+          </article>
+
+          <article class="side-card">
+            <div class="news-media">
+              <img src="assets/ponnagyun-report.png" alt="Ponnagyun report graphic showing damage at a volunteer clinic" width="1080" height="1080">
+              <span class="category">ပုဏ္ဏားကျွန်း</span>
+            </div>
+            <div class="news-body">
+              <h3>စေတနာ့ဆေးခန်း ပျက်စီးမှုကို မြေပြင်ရုပ်ပုံများဖြင့် မှတ်တမ်းတင်</h3>
+              <p>ပျက်စီးနေသည့် ဆေးခန်းနှင့် ပတ်ဝန်းကျင်အခြေအနေကို မြေပြင်မှ ရရှိထားသည့် ရုပ်ပုံများဖြင့် တင်ဆက်ထားသည်။</p>
+              <div class="byline"><span>Field footage</span><span>October 6, 2026</span></div>
+            </div>
+          </article>
+
+          <div class="more-grid" aria-label="More reports">
+            <article class="brief">
+              <span class="place">Taunggok</span>
+              <h3>တောင်ကုတ် လေကြောင်းတိုက်ခိုက်မှု နောက်ဆက်တွဲ</h3>
+              <p>သေဆုံးသူ ၂ ဦးနှင့် ဒဏ်ရာရသူ ၁ ဦး ရှိကြောင်း ဒေသခံသတင်းဖော်ပြချက်များက ဆိုသည်။</p>
+            </article>
+            <article class="brief">
+              <span class="place">Kyaukphyu</span>
+              <h3>ကျောက်ဖြူ စစ်ဘေးရှောင်ပြည်သူများ၏ အခြေအနေ</h3>
+              <p>ပဋိပက္ခကြောင့် နေရာရွှေ့ပြောင်းနေရသူများ၏ နေ့စဉ်အခက်အခဲများကို စုစည်းတင်ပြသည်။</p>
+            </article>
+            <article class="brief">
+              <span class="place">Analysis</span>
+              <h3>ကျောက်တော် ဖြစ်ရပ်များနှင့် တာဝန်ခံမှု</h3>
+              <p>ဒေသတွင်းဖြစ်ရပ်များအပေါ် အချက်အလက်အခြေပြု ဆန်းစစ်တင်ပြချက်။</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="statements" class="statements" aria-labelledby="statements-title">
+      <div class="shell">
+        <div class="section-head">
+          <h2 id="statements-title">ULA ထုတ်ပြန်ချက်များ</h2>
+          <p>United League of Arakan (ULA) နှင့် သက်ဆိုင်သည့် နောက်ဆုံးထုတ်ပြန်ချက်များကို ထုတ်ပြန်သည့်ရက်စွဲအလိုက် စုစည်းဖော်ပြထားသည်။</p>
+        </div>
+        <div class="statement-list">
+          <article class="statement-item">
+            <time class="statement-date" datetime="2026-10-07">၂၀၂၆ အောက်တိုဘာ ၇</time>
+            <h3>ကျောက်တော် လေကြောင်းတိုက်ခိုက်မှုအပေါ် ရပ်တည်ပေးခဲ့သူများအား ကျေးဇူးတင်လွှာ</h3>
+            <p>စက်တင်ဘာ ၂၈ ရက် ကျောက်တော်လေကြောင်းတိုက်ခိုက်မှုကြောင့် လူ ၅၀ သေဆုံးပြီး ၅၇ ဦး ဒဏ်ရာရခဲ့သည့်ဖြစ်ရပ်ကို ပြင်းထန်စွာ ကန့်ကွက်ရှုတ်ချပေးခဲ့ကြသူများအား ULA က ကျေးဇူးတင်ကြောင်း ထုတ်ပြန်ခဲ့သည်။</p>
+            <span class="statement-source">သတင်းရင်းမြစ် · Narinjara</span>
+          </article>
+          <article class="statement-item">
+            <time class="statement-date" datetime="2026-09-28">၂၀၂၆ စက်တင်ဘာ ၂၈</time>
+            <h3>ရခိုင်စစ်မျက်နှာ စစ်ရေးအခြေအနေ ထုတ်ပြန်ချက်</h3>
+            <p>စစ်ကောင်စီတပ်သည် ရခိုင်စစ်မျက်နှာ ခုနစ်ခုထက်မနည်းတွင် ရှုံးနိမ့်နေကြောင်း၊ စက်တင်ဘာ ၄ ရက် ထိုးစစ်ကို တွန်းလှန်နိုင်ခဲ့ပြီး စက်တင်ဘာ ၁၆ နှင့် ၂၀ ရက်များတွင် စစ်သုံ့ပန်းများ ဖမ်းဆီးရမိကြောင်း ဖော်ပြထားသည်။ အရပ်သားများကို ရည်ရွယ်ချက်ရှိရှိ ဗုံးကြဲသူများ လက်တုံ့ပြန်ခံရမည်ဟုလည်း သတိပေးထားသည်။</p>
+            <span class="statement-source">သတင်းရင်းမြစ် · <a href="https://burmese.bnanews.net/news/45969/" target="_blank" rel="noopener noreferrer">Border News Agency ↗</a></span>
+          </article>
+          <article class="statement-item">
+            <time class="statement-date" datetime="2026-09-23">၂၀၂၆ စက်တင်ဘာ ၂၃</time>
+            <h3>ရက္ခိုင်ပြည်သူ့မီဒီယာကောင်စီ ဖွဲ့စည်း</h3>
+            <p>အဖွဲ့ဝင် ၁၅ ဦးပါဝင်သည့် ရက္ခိုင်ပြည်သူ့မီဒီယာကောင်စီကို ဖွဲ့စည်းခဲ့ပြီး ဦးအောင်မင်းဦးက ဥက္ကဋ္ဌအဖြစ် တာဝန်ယူသည်။ သတင်းလွတ်လပ်ခွင့်နှင့် သတင်းသမားအခွင့်အရေး ကာကွယ်ရေးကို ရည်ရွယ်ထားသည်။</p>
+            <span class="statement-source">သတင်းရင်းမြစ် · Global Arakan Network</span>
+          </article>
+          <article class="statement-item">
+            <time class="statement-date" datetime="2026-09-17">၂၀၂၆ စက်တင်ဘာ ၁၇</time>
+            <h3>MTP ကုန်သွယ်ရေးဂိတ် မီးရှို့ရန်ကြိုးပမ်းမှုကို ဖြေရှင်း</h3>
+            <p>မီဇိုရမ်နယ်စပ် ခိုင်ခီရွာတွင် ဖြစ်ပွားခဲ့သည့် ဖျက်ဆီးမီးရှို့ရန် ကြိုးပမ်းမှုကို ညှိနှိုင်းဖြေရှင်းခဲ့ပြီး D-Lap ဌာနက အရေးယူဆောင်ရွက်ခဲ့ကြောင်း ဖော်ပြထားသည်။</p>
+            <span class="statement-source">သတင်းရင်းမြစ် · Chinland Guardian</span>
+          </article>
+          <article class="statement-item">
+            <time class="statement-date" datetime="2026-09-04">၂၀၂၆ စက်တင်ဘာ ၄</time>
+            <h3>လေကြောင်း၊ ရေကြောင်းနှင့် လက်နက်ကြီးအန္တရာယ် အရေးပေါ်သတိပေးချက်</h3>
+            <p>နေ့စဉ်ဖြစ်ပေါ်နေသည့် လေကြောင်းတိုက်ခိုက်မှု၊ ရေကြောင်းမှ ပစ်ခတ်မှုနှင့် လက်နက်ကြီးပစ်ခတ်မှုများအပေါ် ပြည်သူများ သတိပြုနေထိုင်ကြရန် ULA/AA က အရေးပေါ်သတိပေးချက် ထုတ်ပြန်ခဲ့သည်။</p>
+            <span class="statement-source">သတင်းရင်းမြစ် · Myanmar Pressphoto Agency</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="world" class="world-news" aria-labelledby="world-title">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2 id="world-title">ကမ္ဘာသတင်း</h2>
+            <span class="snapshot-date">Snapshot · October 7, 2026</span>
+          </div>
+          <p>အာရက္ခသတင်းများအပြီး ကမ္ဘာတစ်ဝန်းမှ ထင်ရှားသော သတင်းဖြစ်ရပ်များကို အကျဉ်းချုပ် ဖော်ပြထားသည်။</p>
+        </div>
+        <div class="world-grid">
+          <article class="world-item">
+            <h3>ဆော်ဒီ စွမ်းအင်အခြေခံအဆောက်အအုံများကို ဟူသီတို့ တိုက်ခိုက်</h3>
+            <p>ဟူသီတို့၏ ဆော်ဒီ စွမ်းအင်အခြေခံအဆောက်အအုံများအပေါ် တိုက်ခိုက်မှုများအကြား Brent ရေနံစိမ်းဈေးသည် တစ်စည်လျှင် ဒေါ်လာ ၁၀၀ အထက် ရောက်ရှိခဲ့သည်။</p>
+            <span class="world-source">OilPrice.com · Oct 7</span>
+          </article>
+          <article class="world-item">
+            <h3>ယူကရိန်းစစ်ပွဲ — လေကြောင်းတိုက်ခိုက်မှု ပြင်ဆင်မှုနှင့် လောင်စာဌာန မီးလောင်မှု</h3>
+            <p>ရုရှားက Tu-160 နှင့် Tu-95 ဗုံးကြဲလေယာဉ်များပါဝင်သည့် ပေါင်းစပ်လေကြောင်းတိုက်ခိုက်မှုကြီး ပြင်ဆင်နေကြောင်း ဖော်ပြခဲ့ပြီး၊ ယူကရိန်းဒရုန်းများကြောင့် မော်စကိုအနီး Volodarskaya လောင်စာဌာန မီးလောင်ခဲ့သည်။ Dobropillia အနီးတွင်လည်း တိုက်ပွဲများ ဖြစ်ပွားနေသည်။</p>
+            <span class="world-source">Meanwhile in Ukraine · Oct 6</span>
+          </article>
+          <article class="world-item">
+            <h3>ပြင်သစ်တစ်နိုင်ငံလုံး ကျောင်းသားဆန္ဒပြပွဲများ ဖြစ်ပွား</h3>
+            <p>မြို့ကြီးများတွင် ကျောင်းသားဆန္ဒပြသူများနှင့် ရဲတပ်ဖွဲ့တို့ ထိပ်တိုက်တွေ့ခဲ့ပြီး ရဲတပ်ဖွဲ့က မျက်ရည်ယိုဗုံး အသုံးပြုခဲ့သည်။</p>
+            <span class="world-source">Reuters · Oct 7</span>
+          </article>
+          <article class="world-item">
+            <h3>ဂျာမနီ ထောက်လှမ်းရေးအကြီးအကဲဟောင်းကို ဖမ်းဆီး</h3>
+            <p>အသက် ၈၀ အရွယ် ထောက်လှမ်းရေးအကြီးအကဲဟောင်း August Hanning ကို နိုင်ငံတော်သစ္စာဖောက်မှုနှင့် သူလျှိုလုပ်မှု သံသယဖြင့် ဖမ်းဆီးခဲ့သည်။</p>
+            <span class="world-source">Federal prosecutor via news reports · Oct 6</span>
+          </article>
+          <article class="world-item">
+            <h3>Messi က အာဂျင်တီးနားနှင့် ၂၁ နှစ်တာခရီးကို နှုတ်ဆက်</h3>
+            <p>Benin ကို ၃-၀ ဖြင့် အနိုင်ရခဲ့သည့်ပွဲအပြီး Lionel Messi က အာဂျင်တီးနားအသင်းနှင့် ၂၁ နှစ်တာ လက်ရွေးစင်ခရီးကို နှုတ်ဆက်ခဲ့သည်။</p>
+            <span class="world-source">ABC News · Oct 7</span>
+          </article>
+          <article class="world-item">
+            <h3>Greenland သဘောတူညီချက်က အဖွဲ့အားလုံးအတွက် အကျိုးရှိကြောင်း ဒိန်းမတ် ပြောကြား</h3>
+            <p>Greenland ဆိုင်ရာ သဘောတူညီချက်သည် ပါဝင်သည့်အဖွဲ့အားလုံးအတွက် အကျိုးရှိကြောင်း ဒိန်းမတ်က ကုလသမဂ္ဂတွင် ပြောကြားခဲ့သည်။</p>
+            <span class="world-source">AP · Sept 28</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="beauty" class="beauty" aria-labelledby="beauty-title">
+      <div class="shell">
+        <div class="section-head">
+          <h2 id="beauty-title">အာရက္ခရဲ့အလှ</h2>
+          <p>အာရက္ခဒေသ၏ ပင်လယ်ကမ်းခြေများနှင့် သမိုင်းဝင်ရှေးဟောင်းမြို့ မြောက်ဦး၏ သဘာဝအလှအပများ။ ပုံကိုနှိပ်၍ အကြီးကြည့်နိုင်သည်။</p>
+        </div>
+        <div class="beauty-grid">
+          <button class="gallery-button beauty-card" type="button" data-full="assets/ngapali-loveinc.jpg" aria-label="ငပလီကမ်းခြေပုံကို အကြီးကြည့်ရန်">
+            <img src="assets/ngapali-loveinc.jpg" alt="အပြာရောင်ပင်လယ်နှင့် ဖြူစင်သောသဲသောင်ပြင်ရှိသည့် ငပလီကမ်းခြေကို အပေါ်စီးမှမြင်ရပုံ" width="1860" height="1200">
+            <span class="beauty-caption">ငပလီကမ်းခြေ</span>
+          </button>
+          <button class="gallery-button beauty-card" type="button" data-full="assets/mrauk-u-landscape.jpg" aria-label="မြောက်ဦးရှေးဟောင်းဘုရားများပုံကို အကြီးကြည့်ရန်">
+            <img src="assets/mrauk-u-landscape.jpg" alt="မြူနှင်းကြား နံနက်အလင်းရောင်ဖြင့် မြင်ရသည့် မြောက်ဦးရှေးဟောင်းဘုရားများ" width="866" height="487">
+            <span class="beauty-caption">မြောက်ဦးရှေးဟောင်းဘုရားများ</span>
+          </button>
+          <button class="gallery-button beauty-card" type="button" data-full="assets/ngapali-travelsicht.jpg" aria-label="ငပလီကမ်းခြေပုံကို အကြီးကြည့်ရန်">
+            <img src="assets/ngapali-travelsicht.jpg" alt="ပင်လယ်စိမ်းပြာနှင့် သစ်ပင်တန်းများဘေးရှိ ငပလီသဲသောင်ပြင်ကို အပေါ်စီးမှမြင်ရပုံ" width="1200" height="899">
+            <span class="beauty-caption">ငပလီကမ်းခြေ</span>
+          </button>
+          <button class="gallery-button beauty-card" type="button" data-full="assets/mrauk-u-silverless.jpg" aria-label="မြောက်ဦးပုံကို အကြီးကြည့်ရန်">
+            <img src="assets/mrauk-u-silverless.jpg" alt="သစ်ပင်နှင့် မြူနှင်းကြားရှိ မြောက်ဦးဘုရားစေတီများ၏ ရှုခင်း" width="899" height="480">
+            <span class="beauty-caption">မြောက်ဦး</span>
+          </button>
+          <button class="gallery-button beauty-card" type="button" data-full="assets/mrauk-u-temples.jpg" aria-label="မြောက်ဦးရှေးဟောင်းဘုရားများပုံကို အကြီးကြည့်ရန်">
+            <img src="assets/mrauk-u-temples.jpg" alt="နံနက်မြူနှင်းနှင့် ဝန်းရံထားသော မြောက်ဦးရှေးဟောင်းဘုရားစေတီများ" width="450" height="300">
+            <span class="beauty-caption">မြောက်ဦးရှေးဟောင်းဘုရားများ</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="mission" aria-labelledby="about-title">
+      <div class="shell mission-grid">
+        <div class="seal"><img src="assets/voice-of-arakan-logo-v5.webp" alt="The Voice of Arakan emerald-and-gold emblem with the Arakan map, globe and microphone" width="1600" height="1600"></div>
+        <div>
+          <h2 id="about-title">အသံမကြားရသေးတဲ့ လူထုအတွက်</h2>
+          <p>The Voice of Arakan သည် အာရက္ခဒေသမှာ နေ့တိုင်းဖြစ်နေတဲ့ အဖြစ်အပျက်တွေ၊ တိုက်ပွဲတွေ၊ လူထုရဲ့ ဒုက္ခဆင်းရဲတွေကို ကမ္ဘာကြီးသိစေဖို့ နေ့စဉ်တင်ဆက်နေတဲ့ သတင်းအစီအစဉ် ဖြစ်သည်။</p>
+          <div class="principles">
+            <div><strong>Arakan first</strong><span>ဒေသတွင်းအရေးကိစ္စများကို အဓိကထားသည်။</span></div>
+            <div><strong>Grounded reporting</strong><span>မြေပြင်မှတ်တမ်းနှင့် ဒေသခံသတင်းများကို အခြေခံသည်။</span></div>
+            <div><strong>Human dignity</strong><span>လူထု၏ဂုဏ်သိက္ခာနှင့် အမှန်တရားကို ဦးစားပေးသည်။</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery" aria-labelledby="gallery-title">
+      <div class="shell">
+        <div class="section-head">
+          <h2 id="gallery-title">သတင်းရုပ်ပုံများ</h2>
+          <p>ယနေ့ညနေသတင်းမှ သတင်းအကျဉ်းများ။ ပုံကိုနှိပ်၍ အသေးစိတ်ကြည့်နိုင်သည်။</p>
+        </div>
+        <div class="gallery-grid">
+          <button class="gallery-button" type="button" data-full="assets/sittwe-teaser.png" aria-label="View Sittwe report image larger">
+            <img src="assets/sittwe-teaser.png" alt="Sittwe headline graphic on an illuminated map of Arakan" width="1080" height="1080">
+          </button>
+          <button class="gallery-button" type="button" data-full="assets/ponnagyun-teaser.png" aria-label="View Ponnagyun report image larger">
+            <img src="assets/ponnagyun-teaser.png" alt="Ponnagyun volunteer clinic damage headline graphic" width="1080" height="1080">
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell footer-row">
+      <p>အာရက္ခဒေသရဲ့ နေ့စဉ်သတင်းများ — ကမ္ဘာကြီးသိစေဖို့<span class="footer-domain">thevoiceofarakan.com</span></p>
+      <p class="footer-note">Daily video news from Arakan</p>
+    </div>
+  </footer>
+
+  <dialog id="lightbox" aria-label="Image preview">
+    <div class="lightbox-inner">
+      <img id="lightbox-image" src="assets/sittwe-teaser.png" alt="Expanded news image">
+      <button class="close" type="button" aria-label="Close image preview">×</button>
+    </div>
+  </dialog>
+
+  <script>
+    (function () {
+      var dialog = document.getElementById('lightbox');
+      var largeImage = document.getElementById('lightbox-image');
+      var buttons = document.querySelectorAll('.gallery-button');
+      var closeButton = dialog.querySelector('.close');
+
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var preview = button.querySelector('img');
+          largeImage.src = button.getAttribute('data-full');
+          largeImage.alt = preview.alt;
+          dialog.showModal();
+        });
+      });
+
+      closeButton.addEventListener('click', function () { dialog.close(); });
+      dialog.addEventListener('click', function (event) {
+        if (event.target === dialog) dialog.close();
+      });
+    }());
+  </script>
+</body>
+</html>
